@@ -23,8 +23,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Kyle's Stock Program</title>
@@ -57,7 +59,19 @@
                 font-family: Montserrat, sans-serif;
             }
 
+            footer {
+                background-color: #555;
+                color: white;
+                 
+            }
+            
+            newsreel {
+                overflow-y: scroll;              
+                height: 100px;
+                width: 100%;
+                background-color: #dfdfdf;
 
+            }
 
         </style>
 
@@ -66,16 +80,13 @@
     <body>
 
 
-        <div class="jumbotron text-center">
-            <h1>Kyle's Stock Program</h1>
-        </div>
-        <div class="row">
-
+        
+        <nav class="row bg-white fixed-top"style="padding:10px">
 
             <div class="col-sm-1"></div>
             <div class="col-sm-5" ><form method="POST" action="?search" >
                     <input type="text" name="stockSymbol"/>
-                    <button type ="submit" value="Search">Search Stocks</button>
+                    <button type ="submit" value="Search"class="btn btn-light btn-lg">Search Stocks</button>
                 </form></div>
 
             <div class="col-sm-5" >   
@@ -95,10 +106,15 @@
                             }
                             out.println("</select>");
                         %>
-                        <button type ="submit" value="Convert">Currency</button>
+                        <button type ="submit" value="Convert"class="btn btn-light btn-lg">Currency</button>
                     </form></div>                                      
             </div>
             <div class="col-sm-1"></div>
+        </nav>
+
+
+        <div class="jumbotron text-center">
+            <h1>Kyle's Stock Program</h1>
         </div>
 
 
@@ -108,10 +124,10 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8 text-center">
                 <form method="POST" action="?sortBy"> Sort Stocks by:                
-                    <button name= "order" type ="submit" value="priceOrder">Price Order</button>   
-                    <button name= "order" type ="submit" value="shareOrder">Share Order</button>  
-                    <button name= "order" type ="submit" value="dateOrder">Date Order</button> 
-                    <button name= "order" type ="submit" value="return">Return</button> 
+                    <button name= "order" type ="submit" value="priceOrder"class="btn btn-light btn-lg">Price</button>   
+                    <button name= "order" type ="submit" value="shareOrder"class="btn btn-light btn-lg">No of Shares</button>  
+                    <button name= "order" type ="submit" value="dateOrder"class="btn btn-light btn-lg">Last Update</button> 
+                    <button name= "order" type ="submit" value="return"class="btn btn-light btn-lg">Any</button> 
                 </form>  
             </div>
             <div class="col-sm-2"></div>
@@ -232,53 +248,57 @@
         </div>
 
 
-        <div class ="row"style="background-color: #C5B358">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8 text-center"style="color:white">
-                <h2 style="color: white" >News</h2>  
+        <div class ="container rounded"style="background-color: #C5B358" >
+            
+            <div class="text-center"style="color:white">
+                <h2 class="pt-4"style="color: white">News</h2>  
             </div>
-            <div class="col-sm-2">               
+                                  
+        </div>           
+        <div class ="newsreel container rounded"style="background-color: #dfdfdf">            
+            <div class=" text-center pt-sm-5 ">                
+                    <%                            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+                        Date date = new Date();
+                        String todate = dateFormat.format(date);
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.add(Calendar.DATE, -7);
+                        Date todate1 = cal.getTime();
+                        String date1 = dateFormat.format(todate1);
+                        String api = "https://content.guardianapis.com/business/stock-markets?from-date=" + date1 + "&order-by=newest&api-key=09644f75-a4a9-45cf-a9da-bc1f43dc184c";
+
+                        URL url = new URL(api);
+
+                        HttpURLConnection connURL = (HttpURLConnection) url.openConnection();
+                        connURL.setRequestMethod("GET");
+                        BufferedReader ins = new BufferedReader(new InputStreamReader(connURL.getInputStream()));
+                        String inString;
+                        StringBuilder JSONresultStr = new StringBuilder();
+
+                        while ((inString = ins.readLine()) != null) {
+                            JSONresultStr.append(inString);
+                        }
+
+                        ins.close();
+                        connURL.disconnect();
+
+                        //String news = JSONresultStr.toString();
+                        JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
+                        JSONObject responseJSON = entireJSON.getJSONObject("response");
+                        JSONArray resultsArray = responseJSON.getJSONArray("results");
+                        for (int i = 0; i < resultsArray.length(); i++) {
+                            out.println("<div style='width:100%; padding:10px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h2><p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
+                        }
+                    %>
             </div>
+            
         </div>
-        <div class ="row"style="background-color: #dfdfdf">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8 text-center">
-                <%                            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-                    Date date = new Date();
-                    String todate = dateFormat.format(date);
 
-                    Calendar cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, -7);
-                    Date todate1 = cal.getTime();
-                    String date1 = dateFormat.format(todate1);
-                    String api = "https://content.guardianapis.com/business/stock-markets?from-date=" + date1 + "&order-by=newest&api-key=09644f75-a4a9-45cf-a9da-bc1f43dc184c";
-
-                    URL url = new URL(api);
-
-                    HttpURLConnection connURL = (HttpURLConnection) url.openConnection();
-                    connURL.setRequestMethod("GET");
-                    BufferedReader ins = new BufferedReader(new InputStreamReader(connURL.getInputStream()));
-                    String inString;
-                    StringBuilder JSONresultStr = new StringBuilder();
-
-                    while ((inString = ins.readLine()) != null) {
-                        JSONresultStr.append(inString);
-                    }
-
-                    ins.close();
-                    connURL.disconnect();
-
-                    //String news = JSONresultStr.toString();
-                    JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
-                    JSONObject responseJSON = entireJSON.getJSONObject("response");
-                    JSONArray resultsArray = responseJSON.getJSONArray("results");
-                    for (int i = 0; i < resultsArray.length(); i++) {
-                        out.println("<div style='width:100%; padding:10px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h2><p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></</div>");
-                    }
-                %>
-            </div>
-            <div class="col-sm-2"></div>
-        </div>
         <%-- end web service invocation --%><hr/>
+        <footer class="container-fluid text-center">
+            <p>Kyle Angell-Walker</p>
+            <p>N0832083 SCCC</p>
+        </footer>
+
     </body>
 </html>
