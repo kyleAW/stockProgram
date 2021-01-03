@@ -86,7 +86,7 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-5" ><form method="POST" action="?search" >
                     <input type="text" name="stockSymbol"/>
-                    <button type ="submit" value="Search"class="btn btn-light btn-lg">Search Stocks</button>
+                    <button type ="submit" value="Search"class="btn btn-outline-secondary btn-lg">Search Stocks</button>
                 </form></div>
 
             <div class="col-sm-5" >   
@@ -106,7 +106,7 @@
                             }
                             out.println("</select>");
                         %>
-                        <button type ="submit" value="Convert"class="btn btn-light btn-lg">Currency</button>
+                        <button type ="submit" value="Convert"class="btn btn-outline-secondary btn-lg">Currency</button>
                     </form></div>                                      
             </div>
             <div class="col-sm-1"></div>
@@ -124,10 +124,10 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8 text-center">
                 <form method="POST" action="?sortBy"> Sort Stocks by:                
-                    <button name= "order" type ="submit" value="priceOrder"class="btn btn-light btn-lg">Price</button>   
-                    <button name= "order" type ="submit" value="shareOrder"class="btn btn-light btn-lg">No of Shares</button>  
-                    <button name= "order" type ="submit" value="dateOrder"class="btn btn-light btn-lg">Last Update</button> 
-                    <button name= "order" type ="submit" value="return"class="btn btn-light btn-lg">Any</button> 
+                    <button name= "order" type ="submit" value="priceOrder"class="btn btn-outline-secondary btn-lg">Price</button>   
+                    <button name= "order" type ="submit" value="shareOrder"class="btn btn-outline-secondary btn-lg">No of Shares</button>  
+                    <button name= "order" type ="submit" value="dateOrder"class="btn btn-outline-secondary btn-lg">Last Update</button> 
+                    <button name= "order" type ="submit" value="return"class="btn btn-outline-secondary btn-lg">Any</button> 
                 </form>  
             </div>
             <div class="col-sm-2"></div>
@@ -206,8 +206,8 @@
                             out.println("<td>" + arg1 + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getSharePrice() * convResult + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
-                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'>Buy</button></form></td>");
-                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'>Sell</button></form></td>");
+                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
+                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
                             out.println("</tr>");
                         }
 
@@ -225,8 +225,8 @@
                             out.println("<td>" + Stock.getStockPrice().getCurrency() + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getSharePrice() + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
-                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'>Buy</button></form></td>");
-                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'>Sell</button></form></td>");
+                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
+                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
                             out.println("</tr>");
                         }
 
@@ -242,7 +242,7 @@
         <div class="row" style="padding-bottom: 5%">
             <div class="col-sm-2"></div>
             <div class="col-sm-8 text-center">
-                <button class="text-center" type ="submit" value="update">Update Prices</button>
+                <button class="text-center btn btn-outline-secondary btn-lg btn-block" type ="submit" value="update">Update Prices</button>
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -252,10 +252,10 @@
             
             <div class="text-center"style="color:white">
                 <h2 class="pt-4"style="color: white">News</h2>  
-            </div>
-                                  
-        </div>           
-        <div class ="newsreel container rounded"style="background-color: #dfdfdf">            
+            </div>                                  
+              </div>
+        <div class ="pre-scrollable container rounded"style="background-color: #dfdfdf; height:400px">            
+        
             <div class=" text-center pt-sm-5 ">                
                     <%                            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
                         Date date = new Date();
@@ -287,12 +287,13 @@
                         JSONObject responseJSON = entireJSON.getJSONObject("response");
                         JSONArray resultsArray = responseJSON.getJSONArray("results");
                         for (int i = 0; i < resultsArray.length(); i++) {
-                            out.println("<div style='width:100%; padding:10px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h2><p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
+                            out.println("<div style='width:100%; padding:10px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h4><p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
                         }
                     %>
             </div>
             
         </div>
+                 
 
         <%-- end web service invocation --%><hr/>
         <footer class="container-fluid text-center">
