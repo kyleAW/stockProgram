@@ -5,7 +5,7 @@
  */
 package org.myws;
 
-import docwebservices.CurrencyConversionWSService;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,8 +27,7 @@ public class stockWebService {
     
     private final String xmlLocation = "D:\\Kyle\\Documents\\Work\\Year 3\\Cloud Comp\\stockProgram\\stockWebApplication\\src\\java\\org\\myws\\currentStocks.xml";
     
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl")
-    private CurrencyConversionWSService service;
+    
     String name;
 
     /**
@@ -257,23 +256,7 @@ public class stockWebService {
         return resultStocks;
     }
 
-    @WebMethod(operationName = "getCurrency")
-    public java.util.List<java.lang.String> getCurrencyCodes() {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getCurrencyCodes();
-    }
-
-    @WebMethod(operationName = "convertCurrency")
-    public double getConversionRate(java.lang.String arg0, java.lang.String arg1) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.     
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getConversionRate(arg0, arg1);
-    }
-
-    
+   
     
   
 }

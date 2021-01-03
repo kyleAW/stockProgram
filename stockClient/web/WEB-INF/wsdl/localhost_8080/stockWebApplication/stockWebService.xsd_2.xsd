@@ -6,17 +6,9 @@
 
 <xs:element name="allStocksResponse" type="tns:allStocksResponse"/>
 
-<xs:element name="convertCurrency" type="tns:convertCurrency"/>
-
-<xs:element name="convertCurrencyResponse" type="tns:convertCurrencyResponse"/>
-
 <xs:element name="dateOrder" type="tns:dateOrder"/>
 
 <xs:element name="dateOrderResponse" type="tns:dateOrderResponse"/>
-
-<xs:element name="getCurrency" type="tns:getCurrency"/>
-
-<xs:element name="getCurrencyResponse" type="tns:getCurrencyResponse"/>
 
 <xs:element name="priceOrder" type="tns:priceOrder"/>
 
@@ -50,16 +42,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="allStocks">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="allStocksResponse">
-<xs:sequence>
-<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="dateOrder">
 <xs:sequence/>
 </xs:complexType>
@@ -70,26 +52,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCurrency">
+<xs:complexType name="allStocks">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="getCurrencyResponse">
+<xs:complexType name="allStocksResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="convertCurrency">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="convertCurrencyResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:double"/>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

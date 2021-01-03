@@ -26,12 +26,8 @@ public class ObjectFactory {
 
     private final static QName _AllStocks_QNAME = new QName("http://myws.org/", "allStocks");
     private final static QName _AllStocksResponse_QNAME = new QName("http://myws.org/", "allStocksResponse");
-    private final static QName _ConvertCurrency_QNAME = new QName("http://myws.org/", "convertCurrency");
-    private final static QName _ConvertCurrencyResponse_QNAME = new QName("http://myws.org/", "convertCurrencyResponse");
     private final static QName _DateOrder_QNAME = new QName("http://myws.org/", "dateOrder");
     private final static QName _DateOrderResponse_QNAME = new QName("http://myws.org/", "dateOrderResponse");
-    private final static QName _GetCurrency_QNAME = new QName("http://myws.org/", "getCurrency");
-    private final static QName _GetCurrencyResponse_QNAME = new QName("http://myws.org/", "getCurrencyResponse");
     private final static QName _PriceOrder_QNAME = new QName("http://myws.org/", "priceOrder");
     private final static QName _PriceOrderResponse_QNAME = new QName("http://myws.org/", "priceOrderResponse");
     private final static QName _SearchStock_QNAME = new QName("http://myws.org/", "searchStock");
@@ -67,22 +63,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ConvertCurrency }
-     * 
-     */
-    public ConvertCurrency createConvertCurrency() {
-        return new ConvertCurrency();
-    }
-
-    /**
-     * Create an instance of {@link ConvertCurrencyResponse }
-     * 
-     */
-    public ConvertCurrencyResponse createConvertCurrencyResponse() {
-        return new ConvertCurrencyResponse();
-    }
-
-    /**
      * Create an instance of {@link DateOrder }
      * 
      */
@@ -96,22 +76,6 @@ public class ObjectFactory {
      */
     public DateOrderResponse createDateOrderResponse() {
         return new DateOrderResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCurrency }
-     * 
-     */
-    public GetCurrency createGetCurrency() {
-        return new GetCurrency();
-    }
-
-    /**
-     * Create an instance of {@link GetCurrencyResponse }
-     * 
-     */
-    public GetCurrencyResponse createGetCurrencyResponse() {
-        return new GetCurrencyResponse();
     }
 
     /**
@@ -213,24 +177,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrency }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://myws.org/", name = "convertCurrency")
-    public JAXBElement<ConvertCurrency> createConvertCurrency(ConvertCurrency value) {
-        return new JAXBElement<ConvertCurrency>(_ConvertCurrency_QNAME, ConvertCurrency.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrencyResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://myws.org/", name = "convertCurrencyResponse")
-    public JAXBElement<ConvertCurrencyResponse> createConvertCurrencyResponse(ConvertCurrencyResponse value) {
-        return new JAXBElement<ConvertCurrencyResponse>(_ConvertCurrencyResponse_QNAME, ConvertCurrencyResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DateOrder }{@code >}}
      * 
      */
@@ -246,24 +192,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://myws.org/", name = "dateOrderResponse")
     public JAXBElement<DateOrderResponse> createDateOrderResponse(DateOrderResponse value) {
         return new JAXBElement<DateOrderResponse>(_DateOrderResponse_QNAME, DateOrderResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrency }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://myws.org/", name = "getCurrency")
-    public JAXBElement<GetCurrency> createGetCurrency(GetCurrency value) {
-        return new JAXBElement<GetCurrency>(_GetCurrency_QNAME, GetCurrency.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrencyResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://myws.org/", name = "getCurrencyResponse")
-    public JAXBElement<GetCurrencyResponse> createGetCurrencyResponse(GetCurrencyResponse value) {
-        return new JAXBElement<GetCurrencyResponse>(_GetCurrencyResponse_QNAME, GetCurrencyResponse.class, null, value);
     }
 
     /**
