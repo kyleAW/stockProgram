@@ -50,21 +50,21 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="dateOrder">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="dateOrderResponse">
-<xs:sequence>
-<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="allStocks">
 <xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="allStocksResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dateOrder">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="dateOrderResponse">
 <xs:sequence>
 <xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

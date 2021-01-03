@@ -15,6 +15,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="org.netbeans.xml.schema.shares.StockType"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,25 +63,22 @@
             footer {
                 background-color: #555;
                 color: white;
-                 
             }
-            
+
             newsreel {
                 overflow-y: scroll;              
                 height: 100px;
                 width: 100%;
                 background-color: #dfdfdf;
-
             }
 
         </style>
-
-
     </head>
+
     <body>
 
 
-        
+
         <nav class="row bg-white fixed-top"style="padding:10px">
 
             <div class="col-sm-1"></div>
@@ -93,9 +91,15 @@
                 <div style="text-align: right">
                     <form method="POST" action="?currency" >
                         <%
+
+                            docwebservices.CurrencyConversionWSService services = new docwebservices.CurrencyConversionWSService();
+                            docwebservices.CurrencyConversionWS portw = services.getCurrencyConversionWSPort();
+                            
+                            java.util.List<java.lang.String> resultw = portw.getCurrencyCodes();
+
                             org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
                             org.myws.StockWebService port = service.getStockWebServicePort();
-                            java.util.List<java.lang.String> resultw = port.getCurrency();
+                            //java.util.List<java.lang.String> resultw = port.getCurrency();
                             out.println("<select name='currencyOption'>");
                             for (String c : resultw) {
                                 if (c.equals("GBP - British pound")) {
@@ -192,10 +196,10 @@
                         java.lang.String arg0 = "GBP";
                         String[] s = request.getParameter("currencyOption").split(" ");
                         java.lang.String arg1 = s[0];
-                        // TODO process result here
-
-                        double convResult = port.convertCurrency(arg0, arg1);
-
+                       
+                        DecimalFormat df = new DecimalFormat("0.00");  
+                        double convResult = portw.getConversionRate(arg0, arg1);
+                       
                         out.println(
                                 "<hr/><table class='table'><td>Stock Name</td><td>Stock Symbol</td><td>Stock Amount</td><td>Curr</td><td>Stock Price</td><td>Last Updated</td><td>Buy</td><td>Sell</td>");
                         for (StockType Stock : result) {
@@ -204,13 +208,13 @@
                             out.println("<td>" + Stock.getCode() + "</td>");
                             out.println("<td>" + Stock.getShareNo() + "</td>");
                             out.println("<td>" + arg1 + "</td>");
-                            out.println("<td>" + Stock.getStockPrice().getSharePrice() * convResult + "</td>");
+                            out.println("<td>" + df.format(Stock.getStockPrice().getSharePrice() * convResult) + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
                             out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
                             out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
                             out.println("</tr>");
                         }
-
+                            
                         out.println(
                                 "</table>");
                     } else {
@@ -249,51 +253,50 @@
 
 
         <div class ="container rounded"style="background-color: #C5B358" >
-            
+
             <div class="text-center"style="color:white">
                 <h2 class="pt-4"style="color: white">News</h2>  
             </div>                                  
-              </div>
-        <div class ="pre-scrollable container rounded"style="background-color: #dfdfdf; height:400px">            
-        
-            <div class=" text-center pt-sm-5 ">                
-                    <%                            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-                        Date date = new Date();
-                        String todate = dateFormat.format(date);
-
-                        Calendar cal = Calendar.getInstance();
-                        cal.add(Calendar.DATE, -7);
-                        Date todate1 = cal.getTime();
-                        String date1 = dateFormat.format(todate1);
-                        String api = "https://content.guardianapis.com/business/stock-markets?from-date=" + date1 + "&order-by=newest&api-key=09644f75-a4a9-45cf-a9da-bc1f43dc184c";
-
-                        URL url = new URL(api);
-
-                        HttpURLConnection connURL = (HttpURLConnection) url.openConnection();
-                        connURL.setRequestMethod("GET");
-                        BufferedReader ins = new BufferedReader(new InputStreamReader(connURL.getInputStream()));
-                        String inString;
-                        StringBuilder JSONresultStr = new StringBuilder();
-
-                        while ((inString = ins.readLine()) != null) {
-                            JSONresultStr.append(inString);
-                        }
-
-                        ins.close();
-                        connURL.disconnect();
-
-                        //String news = JSONresultStr.toString();
-                        JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
-                        JSONObject responseJSON = entireJSON.getJSONObject("response");
-                        JSONArray resultsArray = responseJSON.getJSONArray("results");
-                        for (int i = 0; i < resultsArray.length(); i++) {
-                            out.println("<div style='width:100%; padding:10px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h4><p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
-                        }
-                    %>
-            </div>
-            
         </div>
-                 
+        <div class ="pre-scrollable container rounded"style="background-color: #dfdfdf; height:400px">            
+
+            <div class=" text-center pt-sm-5 ">                
+                <%                            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+                    Date date = new Date();
+                    String todate = dateFormat.format(date);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DATE, -7);
+                    Date todate1 = cal.getTime();
+                    String date1 = dateFormat.format(todate1);
+                    String api = "https://content.guardianapis.com/business/stock-markets?from-date=" + date1 + "&order-by=newest&api-key=09644f75-a4a9-45cf-a9da-bc1f43dc184c";
+
+                    URL url = new URL(api);
+
+                    HttpURLConnection connURL = (HttpURLConnection) url.openConnection();
+                    connURL.setRequestMethod("GET");
+                    BufferedReader ins = new BufferedReader(new InputStreamReader(connURL.getInputStream()));
+                    String inString;
+                    StringBuilder JSONresultStr = new StringBuilder();
+
+                    while ((inString = ins.readLine()) != null) {
+                        JSONresultStr.append(inString);
+                    }
+
+                    ins.close();
+                    connURL.disconnect();
+
+                    JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
+                    JSONObject responseJSON = entireJSON.getJSONObject("response");
+                    JSONArray resultsArray = responseJSON.getJSONArray("results");
+                    for (int i = 0; i < resultsArray.length(); i++) {
+                        out.println("<div style='width:100%; padding:5px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h4><p>"+ resultsArray.getJSONObject(i).getString("webPublicationDate") +"</p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
+                    }
+                %>
+            </div>
+
+        </div>
+
 
         <%-- end web service invocation --%><hr/>
         <footer class="container-fluid text-center">
