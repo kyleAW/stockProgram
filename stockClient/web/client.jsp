@@ -4,6 +4,8 @@
     Author     : Kyle
 --%>
 
+<%@page import="stock.client.StockPriceManager"%>
+<%@page import="stock.client.http.HttpSender"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.util.Calendar"%>
@@ -192,64 +194,45 @@
                     }
                     //converter bit
 
+                    double convResult = 1;
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    String currency = "GBP";
+                    
                     if (request.getParameter("currency") != null && request.getParameter("currencyOption") != null && !request.getParameter("currencyOption").equals("GBP - British pound")) {
                         java.lang.String arg0 = "GBP";
                         String[] s = request.getParameter("currencyOption").split(" ");
-                        java.lang.String arg1 = s[0];
-                       
-                        DecimalFormat df = new DecimalFormat("0.00");  
-                        double convResult = portw.getConversionRate(arg0, arg1);
+                        currency = s[0];                        
+                        convResult = portw.getConversionRate(arg0, currency);
+                    }
+                        
                        
                         out.println(
                                 "<hr/><table class='table'><td>Stock Name</td><td>Stock Symbol</td><td>Stock Amount</td><td>Curr</td><td>Stock Price</td><td>Last Updated</td><td>Buy</td><td>Sell</td>");
                         for (StockType Stock : result) {
+                            StockPriceManager price = new StockPriceManager();//create new stock price restful api thing
+                            Stock.getStockPrice().setSharePrice(price.updateStockPrice(Stock.getCode()));
                             out.println("<tr>");
                             out.println("<td>" + Stock.getName() + "</td>");
                             out.println("<td>" + Stock.getCode() + "</td>");
                             out.println("<td>" + Stock.getShareNo() + "</td>");
-                            out.println("<td>" + arg1 + "</td>");
+                            out.println("<td>" + currency + "</td>");
                             out.println("<td>" + df.format(Stock.getStockPrice().getSharePrice() * convResult) + "</td>");
                             out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
                             out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
                             out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
                             out.println("</tr>");
+                            Thread.sleep(10);
                         }
                             
                         out.println(
                                 "</table>");
-                    } else {
-
-                        out.println(
-                                "<hr/><table class='table'><td>Stock Name</td><td>Stock Symbol</td><td>Stock Amount</td><td>Curr</td><td>Stock Price</td><td>Last Updated</td><td>Buy</td><td>Sell</td>");
-                        for (StockType Stock : result) {
-                            out.println("<tr>");
-                            out.println("<td>" + Stock.getName() + "</td>");
-                            out.println("<td>" + Stock.getCode() + "</td>");
-                            out.println("<td>" + Stock.getShareNo() + "</td>");
-                            out.println("<td>" + Stock.getStockPrice().getCurrency() + "</td>");
-                            out.println("<td>" + Stock.getStockPrice().getSharePrice() + "</td>");
-                            out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
-                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
-                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
-                            out.println("</tr>");
-                        }
-
-                        out.println(
-                                "</table>");
-                    }
 
                     // news rest api Your API key is: 22afeb52ffe4498f9ed0a6657a18485a
                 %>
             </div>
             <div class="col-sm-1"></div>
         </div>
-        <div class="row" style="padding-bottom: 5%">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8 text-center">
-                <button class="text-center btn btn-outline-secondary btn-lg btn-block" type ="submit" value="update">Update Prices</button>
-            </div>
-            <div class="col-sm-2"></div>
-        </div>
+       
 
 
         <div class ="container rounded"style="background-color: #C5B358" >
@@ -296,9 +279,7 @@
             </div>
 
         </div>
-
-
-        <%-- end web service invocation --%><hr/>
+      
         <footer class="container-fluid text-center">
             <p>Kyle Angell-Walker</p>
             <p>N0832083 SCCC</p>
