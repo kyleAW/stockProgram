@@ -7,17 +7,23 @@
 <xsd:import namespace="http://myws.org/" schemaLocation="http://localhost:8080/stockWebApplication/stockWebService?xsd=2"/>
 </xsd:schema>
 </types>
+<message name="searchStock">
+<part name="parameters" element="tns:searchStock"/>
+</message>
+<message name="searchStockResponse">
+<part name="parameters" element="tns:searchStockResponse"/>
+</message>
+<message name="updatePrices">
+<part name="parameters" element="tns:updatePrices"/>
+</message>
+<message name="updatePricesResponse">
+<part name="parameters" element="tns:updatePricesResponse"/>
+</message>
 <message name="priceOrder">
 <part name="parameters" element="tns:priceOrder"/>
 </message>
 <message name="priceOrderResponse">
 <part name="parameters" element="tns:priceOrderResponse"/>
-</message>
-<message name="dateOrder">
-<part name="parameters" element="tns:dateOrder"/>
-</message>
-<message name="dateOrderResponse">
-<part name="parameters" element="tns:dateOrderResponse"/>
 </message>
 <message name="shareBuy">
 <part name="parameters" element="tns:shareBuy"/>
@@ -25,11 +31,11 @@
 <message name="shareBuyResponse">
 <part name="parameters" element="tns:shareBuyResponse"/>
 </message>
-<message name="shareOrder">
-<part name="parameters" element="tns:shareOrder"/>
+<message name="dateOrder">
+<part name="parameters" element="tns:dateOrder"/>
 </message>
-<message name="shareOrderResponse">
-<part name="parameters" element="tns:shareOrderResponse"/>
+<message name="dateOrderResponse">
+<part name="parameters" element="tns:dateOrderResponse"/>
 </message>
 <message name="shareSell">
 <part name="parameters" element="tns:shareSell"/>
@@ -37,51 +43,55 @@
 <message name="shareSellResponse">
 <part name="parameters" element="tns:shareSellResponse"/>
 </message>
+<message name="shareOrder">
+<part name="parameters" element="tns:shareOrder"/>
+</message>
+<message name="shareOrderResponse">
+<part name="parameters" element="tns:shareOrderResponse"/>
+</message>
 <message name="allStocks">
 <part name="parameters" element="tns:allStocks"/>
 </message>
 <message name="allStocksResponse">
 <part name="parameters" element="tns:allStocksResponse"/>
 </message>
-<message name="searchStock">
-<part name="parameters" element="tns:searchStock"/>
-</message>
-<message name="searchStockResponse">
-<part name="parameters" element="tns:searchStockResponse"/>
-</message>
 <portType name="stockWebService">
+<operation name="searchStock">
+<input wsam:Action="http://myws.org/stockWebService/searchStockRequest" message="tns:searchStock"/>
+<output wsam:Action="http://myws.org/stockWebService/searchStockResponse" message="tns:searchStockResponse"/>
+</operation>
+<operation name="updatePrices">
+<input wsam:Action="http://myws.org/stockWebService/updatePricesRequest" message="tns:updatePrices"/>
+<output wsam:Action="http://myws.org/stockWebService/updatePricesResponse" message="tns:updatePricesResponse"/>
+</operation>
 <operation name="priceOrder">
 <input wsam:Action="http://myws.org/stockWebService/priceOrderRequest" message="tns:priceOrder"/>
 <output wsam:Action="http://myws.org/stockWebService/priceOrderResponse" message="tns:priceOrderResponse"/>
-</operation>
-<operation name="dateOrder">
-<input wsam:Action="http://myws.org/stockWebService/dateOrderRequest" message="tns:dateOrder"/>
-<output wsam:Action="http://myws.org/stockWebService/dateOrderResponse" message="tns:dateOrderResponse"/>
 </operation>
 <operation name="shareBuy">
 <input wsam:Action="http://myws.org/stockWebService/shareBuyRequest" message="tns:shareBuy"/>
 <output wsam:Action="http://myws.org/stockWebService/shareBuyResponse" message="tns:shareBuyResponse"/>
 </operation>
-<operation name="shareOrder">
-<input wsam:Action="http://myws.org/stockWebService/shareOrderRequest" message="tns:shareOrder"/>
-<output wsam:Action="http://myws.org/stockWebService/shareOrderResponse" message="tns:shareOrderResponse"/>
+<operation name="dateOrder">
+<input wsam:Action="http://myws.org/stockWebService/dateOrderRequest" message="tns:dateOrder"/>
+<output wsam:Action="http://myws.org/stockWebService/dateOrderResponse" message="tns:dateOrderResponse"/>
 </operation>
 <operation name="shareSell">
 <input wsam:Action="http://myws.org/stockWebService/shareSellRequest" message="tns:shareSell"/>
 <output wsam:Action="http://myws.org/stockWebService/shareSellResponse" message="tns:shareSellResponse"/>
 </operation>
+<operation name="shareOrder">
+<input wsam:Action="http://myws.org/stockWebService/shareOrderRequest" message="tns:shareOrder"/>
+<output wsam:Action="http://myws.org/stockWebService/shareOrderResponse" message="tns:shareOrderResponse"/>
+</operation>
 <operation name="allStocks">
 <input wsam:Action="http://myws.org/stockWebService/allStocksRequest" message="tns:allStocks"/>
 <output wsam:Action="http://myws.org/stockWebService/allStocksResponse" message="tns:allStocksResponse"/>
 </operation>
-<operation name="searchStock">
-<input wsam:Action="http://myws.org/stockWebService/searchStockRequest" message="tns:searchStock"/>
-<output wsam:Action="http://myws.org/stockWebService/searchStockResponse" message="tns:searchStockResponse"/>
-</operation>
 </portType>
 <binding name="stockWebServicePortBinding" type="tns:stockWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="priceOrder">
+<operation name="searchStock">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -90,7 +100,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="dateOrder">
+<operation name="updatePrices">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="priceOrder">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -108,7 +127,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="shareOrder">
+<operation name="dateOrder">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -126,7 +145,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="allStocks">
+<operation name="shareOrder">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -135,7 +154,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="searchStock">
+<operation name="allStocks">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stock.client;
+package org.myws;
 
+/**
+ *
+ * @author Kyle
+ */
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import stock.client.http.HttpSender;
+
 
 /**
  *
@@ -27,7 +31,7 @@ public class StockPriceManager {
            
         JSONArray resultsArray = entireJSON.getJSONArray("data");
         result = resultsArray.getJSONObject(0).getDouble("close");
-            System.out.println("Recent updated price :£"+result);}catch(JSONException e){
+            }catch(JSONException e){
                 System.out.println("theres been a vital error in stock price manager :"+e);
             }
         }

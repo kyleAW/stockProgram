@@ -5,8 +5,9 @@
  */
 package org.myws;
 
-
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,21 +15,23 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.WebServiceRef;
 import stocks.StockPortfolio;
 import stocks.StockType;
+import java.util.Calendar;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+
 
 /**
  *
  * @author Kyle
  */
 @WebService(serviceName = "stockWebService")
-public class stockWebService {
+public class stockWebService {    
     
     private final String xmlLocation = "D:\\Kyle\\Documents\\Work\\Year 3\\Cloud Comp\\stockProgram\\stockWebApplication\\src\\java\\org\\myws\\currentStocks.xml";
-    
-    
     String name;
+    
 
     /**
      * This is a sample web service operation
@@ -256,7 +259,54 @@ public class stockWebService {
         return resultStocks;
     }
 
-   
+    @WebMethod(operationName = "updatePrices")
+    public void updateStockPrices() throws DatatypeConfigurationException {        
+        StockPortfolio stocks = new StockPortfolio();
+        
+        //quick thing to get todays date and convert to xmlgregorian for the xml file. this can be done from the api but was having problems with the dates
+        DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+        Date date = new Date();        
+        Calendar cal = Calendar.getInstance();
+        Date todate1 = cal.getTime();
+        String date1 = dateFormat.format(todate1);       
+        XMLGregorianCalendar dateXMLGreg = DatatypeFactory.newInstance()
+                .newXMLGregorianCalendar(date1);      
+        
+        //unmarshall everything
+        try {
+            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
+            javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
+            stocks = (StockPortfolio) unmarshaller.unmarshal(new java.io.File(xmlLocation)); //NOI18N
+        } catch (javax.xml.bind.JAXBException ex) {
+            // XXXTODO Handle exception
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+        }
+
+        List<StockType> listStocks = stocks.getStockCollection();
+        for (StockType stock : listStocks) {
+            String sym = stock.getCode();
+            StockPriceManager price = new StockPriceManager();
+            double newPrice = price.updateStockPrice(sym);
+            
+            try { 
+                stock.getStockPrice().setSharePrice(newPrice);    
+                stock.getStockPrice().setDate(dateXMLGreg);
+                javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
+                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                marshaller.marshal(stocks, new File(xmlLocation));
+            } catch (javax.xml.bind.JAXBException ex) {
+                // XXXTODO Handle exception
+                java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+            }
+            }
+        }
     
-  
-}
+        
+
+    }
+        
+
+
+

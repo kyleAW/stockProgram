@@ -29,6 +29,30 @@ public interface StockWebService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<org.netbeans.xml.schema.shares.StockType>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchStock", targetNamespace = "http://myws.org/", className = "org.myws.SearchStock")
+    @ResponseWrapper(localName = "searchStockResponse", targetNamespace = "http://myws.org/", className = "org.myws.SearchStockResponse")
+    @Action(input = "http://myws.org/stockWebService/searchStockRequest", output = "http://myws.org/stockWebService/searchStockResponse")
+    public List<StockType> searchStock(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     */
+    @WebMethod
+    @RequestWrapper(localName = "updatePrices", targetNamespace = "http://myws.org/", className = "org.myws.UpdatePrices")
+    @ResponseWrapper(localName = "updatePricesResponse", targetNamespace = "http://myws.org/", className = "org.myws.UpdatePricesResponse")
+    @Action(input = "http://myws.org/stockWebService/updatePricesRequest", output = "http://myws.org/stockWebService/updatePricesResponse")
+    public void updatePrices();
+
+    /**
+     * 
      * @return
      *     returns java.util.List<org.netbeans.xml.schema.shares.StockType>
      */
@@ -38,18 +62,6 @@ public interface StockWebService {
     @ResponseWrapper(localName = "priceOrderResponse", targetNamespace = "http://myws.org/", className = "org.myws.PriceOrderResponse")
     @Action(input = "http://myws.org/stockWebService/priceOrderRequest", output = "http://myws.org/stockWebService/priceOrderResponse")
     public List<StockType> priceOrder();
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<org.netbeans.xml.schema.shares.StockType>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "dateOrder", targetNamespace = "http://myws.org/", className = "org.myws.DateOrder")
-    @ResponseWrapper(localName = "dateOrderResponse", targetNamespace = "http://myws.org/", className = "org.myws.DateOrderResponse")
-    @Action(input = "http://myws.org/stockWebService/dateOrderRequest", output = "http://myws.org/stockWebService/dateOrderResponse")
-    public List<StockType> dateOrder();
 
     /**
      * 
@@ -76,10 +88,10 @@ public interface StockWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "shareOrder", targetNamespace = "http://myws.org/", className = "org.myws.ShareOrder")
-    @ResponseWrapper(localName = "shareOrderResponse", targetNamespace = "http://myws.org/", className = "org.myws.ShareOrderResponse")
-    @Action(input = "http://myws.org/stockWebService/shareOrderRequest", output = "http://myws.org/stockWebService/shareOrderResponse")
-    public List<StockType> shareOrder();
+    @RequestWrapper(localName = "dateOrder", targetNamespace = "http://myws.org/", className = "org.myws.DateOrder")
+    @ResponseWrapper(localName = "dateOrderResponse", targetNamespace = "http://myws.org/", className = "org.myws.DateOrderResponse")
+    @Action(input = "http://myws.org/stockWebService/dateOrderRequest", output = "http://myws.org/stockWebService/dateOrderResponse")
+    public List<StockType> dateOrder();
 
     /**
      * 
@@ -106,24 +118,21 @@ public interface StockWebService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "allStocks", targetNamespace = "http://myws.org/", className = "org.myws.AllStocks")
-    @ResponseWrapper(localName = "allStocksResponse", targetNamespace = "http://myws.org/", className = "org.myws.AllStocksResponse")
-    @Action(input = "http://myws.org/stockWebService/allStocksRequest", output = "http://myws.org/stockWebService/allStocksResponse")
-    public List<StockType> allStocks();
+    @RequestWrapper(localName = "shareOrder", targetNamespace = "http://myws.org/", className = "org.myws.ShareOrder")
+    @ResponseWrapper(localName = "shareOrderResponse", targetNamespace = "http://myws.org/", className = "org.myws.ShareOrderResponse")
+    @Action(input = "http://myws.org/stockWebService/shareOrderRequest", output = "http://myws.org/stockWebService/shareOrderResponse")
+    public List<StockType> shareOrder();
 
     /**
      * 
-     * @param arg0
      * @return
      *     returns java.util.List<org.netbeans.xml.schema.shares.StockType>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchStock", targetNamespace = "http://myws.org/", className = "org.myws.SearchStock")
-    @ResponseWrapper(localName = "searchStockResponse", targetNamespace = "http://myws.org/", className = "org.myws.SearchStockResponse")
-    @Action(input = "http://myws.org/stockWebService/searchStockRequest", output = "http://myws.org/stockWebService/searchStockResponse")
-    public List<StockType> searchStock(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+    @RequestWrapper(localName = "allStocks", targetNamespace = "http://myws.org/", className = "org.myws.AllStocks")
+    @ResponseWrapper(localName = "allStocksResponse", targetNamespace = "http://myws.org/", className = "org.myws.AllStocksResponse")
+    @Action(input = "http://myws.org/stockWebService/allStocksRequest", output = "http://myws.org/stockWebService/allStocksResponse")
+    public List<StockType> allStocks();
 
 }

@@ -4,8 +4,6 @@
     Author     : Kyle
 --%>
 
-<%@page import="stock.client.StockPriceManager"%>
-<%@page import="stock.client.http.HttpSender"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.util.Calendar"%>
@@ -95,15 +93,15 @@
                         <%
 
                             docwebservices.CurrencyConversionWSService services = new docwebservices.CurrencyConversionWSService();
-                            docwebservices.CurrencyConversionWS portw = services.getCurrencyConversionWSPort();
-                            
-                            java.util.List<java.lang.String> resultw = portw.getCurrencyCodes();
+                            docwebservices.CurrencyConversionWS portCS = services.getCurrencyConversionWSPort();
+                            java.util.List<java.lang.String> resultCS = portCS.getCurrencyCodes(); //CS is Currency Service                            
 
-                            org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
-                            org.myws.StockWebService port = service.getStockWebServicePort();
-                            //java.util.List<java.lang.String> resultw = port.getCurrency();
+                            org.myws.StockWebService_Service serviceWS = new org.myws.StockWebService_Service();
+                            org.myws.StockWebService port = serviceWS.getStockWebServicePort();
+                            //port.updatePrices();
+
                             out.println("<select name='currencyOption'>");
-                            for (String c : resultw) {
+                            for (String c : resultCS) {
                                 if (c.equals("GBP - British pound")) {
                                     out.println("<option value='" + c + "' selected>" + c + "</option>");
                                 } else {
@@ -142,8 +140,7 @@
         <div class ="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10 text-center">
-                <%  //org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
-                    //org.myws.StockWebService port = service.getStockWebServicePort();
+                <%
                     java.util.List<org.netbeans.xml.schema.shares.StockType> result;
 
                     String outcome = null; //string for the buying and selling
@@ -192,47 +189,55 @@
                         //all stocks
                         result = port.allStocks();
                     }
-                    //converter bit
 
+                    //converter bit
                     double convResult = 1;
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    String currency = "GBP";
-                    
+                    DecimalFormat df = new DecimalFormat("0.00"); //decimal format for reducing the table down to 2 decimal places as double is to like 6
+                    String currency = "GBP"; //defaults to GBP
+
                     if (request.getParameter("currency") != null && request.getParameter("currencyOption") != null && !request.getParameter("currencyOption").equals("GBP - British pound")) {
                         java.lang.String arg0 = "GBP";
                         String[] s = request.getParameter("currencyOption").split(" ");
-                        currency = s[0];                        
-                        convResult = portw.getConversionRate(arg0, currency);
+                        currency = s[0];
+                        convResult = portCS.getConversionRate(arg0, currency); //gives the conversion result to times by in the table
                     }
-                        
-                       
-                        out.println(
-                                "<hr/><table class='table'><td>Stock Name</td><td>Stock Symbol</td><td>Stock Amount</td><td>Curr</td><td>Stock Price</td><td>Last Updated</td><td>Buy</td><td>Sell</td>");
-                        for (StockType Stock : result) {
-                            StockPriceManager price = new StockPriceManager();//create new stock price restful api thing
-                            Stock.getStockPrice().setSharePrice(price.updateStockPrice(Stock.getCode()));
-                            out.println("<tr>");
-                            out.println("<td>" + Stock.getName() + "</td>");
-                            out.println("<td>" + Stock.getCode() + "</td>");
-                            out.println("<td>" + Stock.getShareNo() + "</td>");
-                            out.println("<td>" + currency + "</td>");
-                            out.println("<td>" + df.format(Stock.getStockPrice().getSharePrice() * convResult) + "</td>");
-                            out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
-                            out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
-                            out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
-                            out.println("</tr>");
-                            Thread.sleep(10);
-                        }
-                            
-                        out.println(
-                                "</table>");
 
-                    // news rest api Your API key is: 22afeb52ffe4498f9ed0a6657a18485a
+                    out.println(
+                            "<hr/><table class='table'><td>Stock Name</td><td>Stock Symbol</td><td>Stock Amount</td><td>Curr</td><td>Stock Price</td><td>Last Updated</td><td>Buy</td><td>Sell</td>");
+                    for (StockType Stock : result) {
+                        out.println("<tr>");
+                        out.println("<td>" + Stock.getName() + "</td>");
+                        out.println("<td>" + Stock.getCode() + "</td>");
+                        out.println("<td>" + Stock.getShareNo() + "</td>");
+                        out.println("<td>" + currency + "</td>");
+                        out.println("<td>" + df.format(Stock.getStockPrice().getSharePrice() * convResult) + "</td>");
+                        out.println("<td>" + Stock.getStockPrice().getDate() + "</td>");
+                        out.println("<td><form method='POST' action='?buy'><input type='hidden' name='buySymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='buyButton'/><button type ='submit' value='Buy'class='btn btn-outline-secondary btn-lg'>Buy</button></form></td>");
+                        out.println("<td><form method='POST' action='?sell'><input type='hidden' name='sellSymbol' value='" + Stock.getName() + "' /> <input type='text' style = 'width: 50px' name='sellButton'/><button type ='submit' value='Sell'class='btn btn-outline-secondary btn-lg'>Sell</button></form></td>");
+                        out.println("</tr>");
+                    }
+                    out.println(
+                            "</table>");
+
                 %>
+
             </div>
             <div class="col-sm-1"></div>
         </div>
-       
+                <div class ="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 text-center">
+               <form method="POST" action="?update" >                   
+                    <button type ="submit" value="Update"class="btn btn-outline-secondary btn-lg">Update Stocks</button>
+                </form></div>> 
+               <%   
+                if (request.getParameter("update") != null) {
+                        port.updatePrices();
+                }
+                   %>
+            <div class="col-sm-2"></div>
+        </div>
+
 
 
         <div class ="container rounded"style="background-color: #C5B358" >
@@ -268,18 +273,17 @@
 
                     ins.close();
                     connURL.disconnect();
-
                     JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
                     JSONObject responseJSON = entireJSON.getJSONObject("response");
                     JSONArray resultsArray = responseJSON.getJSONArray("results");
                     for (int i = 0; i < resultsArray.length(); i++) {
-                        out.println("<div style='width:100%; padding:5px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h4><p>"+ resultsArray.getJSONObject(i).getString("webPublicationDate") +"</p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
+                        out.println("<div style='width:100%; padding:5px;'><h4>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h4><p>" + resultsArray.getJSONObject(i).getString("webPublicationDate") + "</p><a href='" + resultsArray.getJSONObject(i).getString("webUrl") + "' target='_blank'>Read this news story</a></p></div>");
                     }
                 %>
             </div>
 
         </div>
-      
+
         <footer class="container-fluid text-center">
             <p>Kyle Angell-Walker</p>
             <p>N0832083 SCCC</p>

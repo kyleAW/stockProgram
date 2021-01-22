@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://myws.org/" xmlns:ns1="http://xml.netbeans.org/schema/Shares" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://myws.org/">
+
+<xs:import namespace="http://xml.netbeans.org/schema/Shares" schemaLocation="http://localhost:8080/stockWebApplication/stockWebService?xsd=1"/>
+
+<xs:element name="DatatypeConfigurationException" type="tns:DatatypeConfigurationException"/>
+
+<xs:element name="allStocks" type="tns:allStocks"/>
+
+<xs:element name="allStocksResponse" type="tns:allStocksResponse"/>
+
+<xs:element name="dateOrder" type="tns:dateOrder"/>
+
+<xs:element name="dateOrderResponse" type="tns:dateOrderResponse"/>
+
+<xs:element name="priceOrder" type="tns:priceOrder"/>
+
+<xs:element name="priceOrderResponse" type="tns:priceOrderResponse"/>
+
+<xs:element name="searchStock" type="tns:searchStock"/>
+
+<xs:element name="searchStockResponse" type="tns:searchStockResponse"/>
+
+<xs:element name="shareBuy" type="tns:shareBuy"/>
+
+<xs:element name="shareBuyResponse" type="tns:shareBuyResponse"/>
+
+<xs:element name="shareOrder" type="tns:shareOrder"/>
+
+<xs:element name="shareOrderResponse" type="tns:shareOrderResponse"/>
+
+<xs:element name="shareSell" type="tns:shareSell"/>
+
+<xs:element name="shareSellResponse" type="tns:shareSellResponse"/>
+
+<xs:element name="updatePrices" type="tns:updatePrices"/>
+
+<xs:element name="updatePricesResponse" type="tns:updatePricesResponse"/>
+
+<xs:complexType name="searchStock">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchStockResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="allStocks">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="allStocksResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dateOrder">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="dateOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shareBuy">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shareBuyResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updatePrices">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="updatePricesResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="DatatypeConfigurationException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shareSell">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shareSellResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="priceOrder">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="priceOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shareOrder">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="shareOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

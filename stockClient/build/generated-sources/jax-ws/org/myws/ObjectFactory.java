@@ -38,6 +38,8 @@ public class ObjectFactory {
     private final static QName _ShareOrderResponse_QNAME = new QName("http://myws.org/", "shareOrderResponse");
     private final static QName _ShareSell_QNAME = new QName("http://myws.org/", "shareSell");
     private final static QName _ShareSellResponse_QNAME = new QName("http://myws.org/", "shareSellResponse");
+    private final static QName _UpdatePrices_QNAME = new QName("http://myws.org/", "updatePrices");
+    private final static QName _UpdatePricesResponse_QNAME = new QName("http://myws.org/", "updatePricesResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.myws
@@ -156,6 +158,22 @@ public class ObjectFactory {
      */
     public ShareSellResponse createShareSellResponse() {
         return new ShareSellResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePrices }
+     * 
+     */
+    public UpdatePrices createUpdatePrices() {
+        return new UpdatePrices();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePricesResponse }
+     * 
+     */
+    public UpdatePricesResponse createUpdatePricesResponse() {
+        return new UpdatePricesResponse();
     }
 
     /**
@@ -282,6 +300,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://myws.org/", name = "shareSellResponse")
     public JAXBElement<ShareSellResponse> createShareSellResponse(ShareSellResponse value) {
         return new JAXBElement<ShareSellResponse>(_ShareSellResponse_QNAME, ShareSellResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePrices }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://myws.org/", name = "updatePrices")
+    public JAXBElement<UpdatePrices> createUpdatePrices(UpdatePrices value) {
+        return new JAXBElement<UpdatePrices>(_UpdatePrices_QNAME, UpdatePrices.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePricesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://myws.org/", name = "updatePricesResponse")
+    public JAXBElement<UpdatePricesResponse> createUpdatePricesResponse(UpdatePricesResponse value) {
+        return new JAXBElement<UpdatePricesResponse>(_UpdatePricesResponse_QNAME, UpdatePricesResponse.class, null, value);
     }
 
 }

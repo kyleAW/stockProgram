@@ -30,6 +30,10 @@
 
 <xs:element name="shareSellResponse" type="tns:shareSellResponse"/>
 
+<xs:element name="updatePrices" type="tns:updatePrices"/>
+
+<xs:element name="updatePricesResponse" type="tns:updatePricesResponse"/>
+
 <xs:complexType name="searchStock">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -73,6 +77,14 @@
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updatePrices">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="updatePricesResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="priceOrder">

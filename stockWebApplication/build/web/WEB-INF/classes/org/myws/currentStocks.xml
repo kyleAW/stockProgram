@@ -3,11 +3,11 @@
     <stock_collection>
         <name>Coca-Cola</name>
         <code>CC</code>
-        <shareNo>832</shareNo>
+        <shareNo>852</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>3.34</sharePrice>
-            <date>2020-11-30</date>
+            <sharePrice>26.98</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -16,8 +16,8 @@
         <shareNo>993</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>18.93</sharePrice>
-            <date>2020-11-18</date>
+            <sharePrice>91.53</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -26,8 +26,8 @@
         <shareNo>1112</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>4.67</sharePrice>
-            <date>2020-11-27</date>
+            <sharePrice>844.99</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -36,18 +36,18 @@
         <shareNo>340</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>22.8</sharePrice>
-            <date>2020-11-01</date>
+            <sharePrice>3306.99</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Facebook</name>
         <code>FB</code>
-        <shareNo>738</shareNo>
+        <shareNo>728</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>15.53</sharePrice>
-            <date>2020-11-03</date>
+            <sharePrice>272.87</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -56,8 +56,8 @@
         <shareNo>254</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>29.58</sharePrice>
-            <date>2020-12-03</date>
+            <sharePrice>136.87</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -66,18 +66,18 @@
         <shareNo>484</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>12.27</sharePrice>
-            <date>2020-12-06</date>
+            <sharePrice>1891.25</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>Hongkong and Shanghai Banking Corporation</name>
+        <name>HSBC</name>
         <code>HSBC</code>
         <shareNo>464</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>20.22</sharePrice>
-            <date>2020-12-01</date>
+            <sharePrice>28.45</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
 </stockPortfolio>
