@@ -12,6 +12,14 @@
 
 <xs:element name="dateOrderResponse" type="tns:dateOrderResponse"/>
 
+<xs:element name="getConversionRate" type="tns:getConversionRate"/>
+
+<xs:element name="getConversionRateResponse" type="tns:getConversionRateResponse"/>
+
+<xs:element name="getCurrencyCodes" type="tns:getCurrencyCodes"/>
+
+<xs:element name="getCurrencyCodesResponse" type="tns:getCurrencyCodesResponse"/>
+
 <xs:element name="priceOrder" type="tns:priceOrder"/>
 
 <xs:element name="priceOrderResponse" type="tns:priceOrderResponse"/>
@@ -68,6 +76,29 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getConversionRate">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConversionRateResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCurrencyCodes">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getCurrencyCodesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="shareBuy">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -81,17 +112,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="updatePrices">
+<xs:complexType name="priceOrder">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="updatePricesResponse">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="DatatypeConfigurationException">
+<xs:complexType name="priceOrderResponse">
 <xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -108,13 +135,17 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="priceOrder">
+<xs:complexType name="updatePrices">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="priceOrderResponse">
+<xs:complexType name="updatePricesResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="DatatypeConfigurationException">
 <xs:sequence>
-<xs:element name="return" type="ns1:stockType" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

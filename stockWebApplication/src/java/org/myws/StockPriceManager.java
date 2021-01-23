@@ -31,6 +31,11 @@ public class StockPriceManager {
            
         JSONArray resultsArray = entireJSON.getJSONArray("data");
         result = resultsArray.getJSONObject(0).getDouble("close");
+        
+        for (int i = 0; i < resultsArray.length(); i++){
+            System.out.println(resultsArray.getJSONObject(i).getString("symbol"));
+            System.out.println(resultsArray.getJSONObject(i).getDouble("close"));
+        }
             }catch(JSONException e){
                 System.out.println("theres been a vital error in stock price manager :"+e);
             }

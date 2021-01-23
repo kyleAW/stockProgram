@@ -6,36 +6,21 @@
 package clientapplication;
 
 import java.awt.Desktop;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.myws.DatatypeConfigurationException_Exception;
 import org.netbeans.xml.schema.shares.StockType;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JLabel;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 /**
  *
@@ -56,9 +41,9 @@ public class clientApp extends javax.swing.JFrame {
     public clientApp() {
         initComponents();
 
-        table = (DefaultTableModel) stockTable.getModel();
+        table = (DefaultTableModel) stockTable.getModel();                      //create the table
         
-        newsFeed.addHyperlinkListener(new HyperlinkListener() {
+        newsFeed.addHyperlinkListener(new HyperlinkListener() {                 //listener for click on the newsfeed so it will go to hyperlink in browser if clicked 
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     if (Desktop.isDesktopSupported()) {
@@ -106,13 +91,14 @@ public class clientApp extends javax.swing.JFrame {
         buyAmount = new javax.swing.JTextField();
         sellAmount = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        title1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         newsFeed = new javax.swing.JEditorPane();
+        title1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         purchasePane = new javax.swing.JTextPane();
         updatePrices = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jScrollPane3.setViewportView(jTextPane1);
 
@@ -278,14 +264,13 @@ public class clientApp extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(197, 179, 88));
 
+        jScrollPane5.setViewportView(newsFeed);
+
         title1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        title1.setForeground(new java.awt.Color(255, 255, 255));
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title1.setLabelFor(title);
         title1.setText("News");
         title1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jScrollPane5.setViewportView(newsFeed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -295,25 +280,27 @@ public class clientApp extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(143, 143, 143))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(title1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(286, 286, 286)
-                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                .addGap(306, 306, 306))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116))
         );
@@ -321,10 +308,8 @@ public class clientApp extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title1)
-                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(purchasePane);
@@ -336,6 +321,11 @@ public class clientApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Kyle Walker N0832083 - COMP30231 SCCC");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel1.setAlignmentY(0.0F);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -346,31 +336,37 @@ public class clientApp extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(AllRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(PriceRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AmountRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(DateRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                        .addGap(293, 293, 293))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(274, 274, 274)
+                                .addComponent(AllRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(PriceRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(AmountRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(DateRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addGap(293, 293, 293))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buyAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BuyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(sellAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SellBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138)
+                        .addComponent(updatePrices)
+                        .addGap(29, 29, 29))))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buyAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BuyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(sellAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SellBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
-                .addComponent(updatePrices)
-                .addGap(29, 29, 29))
+                .addGap(334, 334, 334)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,8 +389,11 @@ public class clientApp extends javax.swing.JFrame {
                         .addComponent(sellAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(updatePrices))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {AllRadioButton, AmountRadioButton, DateRadioButton, PriceRadioButton});
@@ -402,19 +401,26 @@ public class clientApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startUp(){
-        DecimalFormat df = new DecimalFormat("0.00");
-        String arg1;
-        try {
-            arg1 = splitCurr[0];
-        } catch (NullPointerException e) {
-            arg1 = "GBP";
+    private void startUp(){                                                     //this is the operation from the update prices button, but as it runs at init its a seperate function that the button then calls
+        DecimalFormat df = new DecimalFormat("0.00");                           //a decimal formatter to round up to 2 places for easier display of doubles
+        try {                                                                   //try catch to attempt to update the prices in the XML
+            updatePrices();                                                     //updatePrices called from the WebApplication webservice in a try catch that way if the prices cannot update for any reason such as 
+        } catch (DatatypeConfigurationException_Exception ex) {
+            Logger.getLogger(clientApp.class.getName()).log(Level.SEVERE, null, ex);
+            purchasePane.setText("Unable to Update");                           //displays unable to update in the display box under the table if it doesnt work and displays the latest data from the xml it has
         }
-        double convResult = 1;
-        String arg0 = "GBP";
 
-        convResult = getConversionRate(arg0, arg1);
-        int rows = table.getRowCount();
+        String arg1;                                                            //declare arg1 as a string to use for the currency coversion if it works 
+        try {                                                                   //try to see if arg1 can get the split from selected. if it cant display GBP, this is because it defaults to GBP so if theres no selection it has to be GBP
+            arg1 = splitCurr[0];                                                //splitCurr is from the converter code below. its the outcome of the combo box selection
+        } catch (NullPointerException e) {                                      //if the combo box hasnt been changed it is GBP as its the default location. 
+            arg1 = "GBP";                                                       //so arg1 has to be GBP
+        }
+        double convResult = 1;                                                  //give it a double of 1 incase it doesnt work its not going to throw up an error
+        String arg0 = "GBP";                                                    //xml is written with GBP as the base currency so converter is always comparing to this
+        convResult = getConversionRate(arg0, arg1);                             //gets the conversion rate from converter table
+        
+        int rows = table.getRowCount();                                         //remakes the table  with the new info
         for (int i = rows - 1; i >= 0; i--) {
             table.removeRow(i);
         }
@@ -435,12 +441,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -486,12 +492,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDetails = nextStock.getStockPrice().getDate();
-            date.add(dateDetails);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDetails = arg1;
-            currrency.add(currencyDetails);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -504,7 +510,53 @@ public class clientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_PriceRadioButtonActionPerformed
 
     private void AllRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllRadioButtonActionPerformed
-      startUp();
+      DecimalFormat df = new DecimalFormat("0.00");
+        String arg1;
+        try {
+            arg1 = splitCurr[0];
+        } catch (NullPointerException e) {
+            arg1 = "GBP";
+        }
+        double convResult = 1;
+        String arg0 = "GBP";
+
+        convResult = getConversionRate(arg0, arg1);
+        int rows = table.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+        List<StockType> collectionStock = allStocks();
+
+        Iterator itr = collectionStock.iterator();
+        StockType nextStock;
+
+        while (itr.hasNext()) {
+            nextStock = (StockType) itr.next();
+            List<String> name = new ArrayList();
+            name.add(nextStock.getName());
+
+            List<String> code = new ArrayList();
+            code.add(nextStock.getCode());
+
+            List<Integer> amount = new ArrayList();
+            amount.add(nextStock.getShareNo());
+
+            List<XMLGregorianCalendar> date = new ArrayList();
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
+
+            List<String> currrency = new ArrayList();
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
+
+            List<Double> price = new ArrayList();
+            Double baseCost = nextStock.getStockPrice().getSharePrice();
+            Double convPrice = baseCost * convResult;
+            Double formatPrice = Double.parseDouble(df.format(convPrice));
+            price.add(formatPrice);
+            table.insertRow(table.getRowCount(), new Object[]{name.get(0), code.get(0), amount.get(0), currrency.get(0), price.get(0), date.get(0)});
+
+        }
     }//GEN-LAST:event_AllRadioButtonActionPerformed
 
     private void AmountRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmountRadioButtonActionPerformed
@@ -540,12 +592,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -578,7 +630,7 @@ public class clientApp extends javax.swing.JFrame {
         Iterator itr = collectionStock.iterator();
         StockType nextStock;
 
-        while (itr.hasNext()) {
+        while (itr.hasNext()) {                                                                 //while loop goes through the list and assigns each bit to a different array list.
             nextStock = (StockType) itr.next();
             List<String> name = new ArrayList();
             name.add(nextStock.getName());
@@ -590,12 +642,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -646,12 +698,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -725,8 +777,8 @@ public class clientApp extends javax.swing.JFrame {
             date.add(dateDetails);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -780,7 +832,7 @@ public class clientApp extends javax.swing.JFrame {
         convResult = getConversionRate(arg0, arg1);
         List<StockType> collectionStock = allStocks();
 
-        Iterator itr = collectionStock.iterator();
+        Iterator itr = collectionStock.iterator(); 
         StockType nextStock;
 
         while (itr.hasNext()) {
@@ -795,12 +847,12 @@ public class clientApp extends javax.swing.JFrame {
             amount.add(nextStock.getShareNo());
 
             List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
+            XMLGregorianCalendar dateInfo = nextStock.getStockPrice().getDate();
+            date.add(dateInfo);
 
             List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
+            String currencyInfo = arg1;
+            currrency.add(currencyInfo);
 
             List<Double> price = new ArrayList();
             Double baseCost = nextStock.getStockPrice().getSharePrice();
@@ -813,7 +865,7 @@ public class clientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_BuyBtnActionPerformed
 
     private void stockTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockTableMouseClicked
-        // todo
+        // clicker for the newsfeed
         int selected = stockTable.getSelectedRow();
         selectedStock = table.getValueAt(selected, 0).toString();
         newsClick(selectedStock.replace(" ","&/"));
@@ -821,59 +873,13 @@ public class clientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_stockTableMouseClicked
 
     private void newsClick(String comp) {
-        newsFeed.setContentType("text/html");
-        newsFeed.setEditable(false);
-        newsFeed.setCaretPosition(0);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String todate = dateFormat.format(date);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -7);
-        Date todate1 = cal.getTime();
-        String date1 = dateFormat.format(todate1);        
-        String api = "https://content.guardianapis.com/search?from-date=" + date1 + "&q=" + comp + "&api-key=09644f75-a4a9-45cf-a9da-bc1f43dc184c";
-        URL url;
-
-        try {
-            url = new URL(api);
-
-            HttpURLConnection connURL;
-            try {
-                connURL = (HttpURLConnection) url.openConnection();
-
-                connURL.setRequestMethod("GET");
-                BufferedReader ins = new BufferedReader(new InputStreamReader(connURL.getInputStream()));
-                String inString;
-                StringBuilder JSONresultStr = new StringBuilder();
-
-                while ((inString = ins.readLine()) != null) {
-                    JSONresultStr.append(inString);
-                }
-
-                ins.close();
-                connURL.disconnect();
-
-                JSONObject entireJSON = new JSONObject(JSONresultStr.toString());
-                JSONObject responseJSON = entireJSON.getJSONObject("response");
-                JSONArray resultsArray = responseJSON.getJSONArray("results");
-                String htmlContent = "";
-                for (int i = 0; i < resultsArray.length(); i++) {
-                    //this bit needs to change. pulled from jsp temporarly
-                    htmlContent += "<div><h1>" + resultsArray.getJSONObject(i).getString("webTitle") + "</h1><a href=\'" + resultsArray.getJSONObject(i).getString("webUrl") + "\'>" + resultsArray.getJSONObject(i).getString("webUrl") + "</a></div><hr/>";
-                }
-
-                newsFeed.setText(htmlContent);
-            } catch (IOException ex) {
-                Logger.getLogger(newsAPI.class.getName()).log(Level.SEVERE, null, ex);
-                newsFeed.setText("IOException");
-                System.out.println("IO problem");
-
-            }
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(newsAPI.class.getName()).log(Level.SEVERE, null, ex);
-            newsFeed.setText("MalformedURLException");
-            System.out.println("URL problem");
-        }
+        newsFeed.setContentType("text/html");   //setup for newsfeed box
+        newsFeed.setEditable(false);            //setup for newsfeed box
+        newsFeed.setCaretPosition(0);           //setup for newsfeed box
+        
+        newsAPI newsReel = new newsAPI(); //create a new instance of the newsAPI for the newsfeed
+        String htmlContent = newsReel.newsFeed(comp);        //create the html string for the JEditPanel to display
+        newsFeed.setText(htmlContent); //display the html in the newsfeed box
     }
 
     private void sellAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellAmountActionPerformed
@@ -882,32 +888,34 @@ public class clientApp extends javax.swing.JFrame {
 
     private void CurrencyChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrencyChoiceActionPerformed
 
-        currencySelected = CurrencyChoice.getSelectedItem().toString();
-        splitCurr = currencySelected.split(" ");
+        currencySelected = CurrencyChoice.getSelectedItem().toString(); //from what is displayed on the combo box
+        splitCurr = currencySelected.split(" ");                        //split it at the space so everything can grab the first bit for conversion
 
-        DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat df = new DecimalFormat("0.00");                   
 
         String arg1;
-        try {
+        try {                                                           
             arg1 = splitCurr[0];
         } catch (NullPointerException e) {
             arg1 = "GBP";
         }
-        double convResult = 1;
-        String arg0 = "GBP";
+        double convResult = 1;                                          
+        String arg0 = "GBP";                                            
 
-        convResult = getConversionRate(arg0, arg1);
-        int rows = table.getRowCount();
+        convResult = getConversionRate(arg0, arg1);                     //checks the Currency convertsion bolted in webservice for the rate
+        
+        int rows = table.getRowCount();                                 
         for (int i = rows - 1; i >= 0; i--) {
             table.removeRow(i);
         }
-        String SearchInput = SearchField.getText();
+        
+        String SearchInput = SearchField.getText();                     
         List<StockType> collectionStock = searchStock(SearchInput);
 
         Iterator itr = collectionStock.iterator();
         StockType nextStock;
 
-        while (itr.hasNext()) {
+        while (itr.hasNext()) {                                          
             nextStock = (StockType) itr.next();
             List<String> name = new ArrayList();
             name.add(nextStock.getName());
@@ -931,66 +939,13 @@ public class clientApp extends javax.swing.JFrame {
             Double convPrice = baseCost * convResult;
             Double formatPrice = Double.parseDouble(df.format(convPrice));
             price.add(formatPrice);
-            table.insertRow(table.getRowCount(), new Object[]{name.get(0), code.get(0), amount.get(0), currrency.get(0), price.get(0), date.get(0)});
+            table.insertRow(table.getRowCount(), new Object[]{name.get(0), code.get(0), amount.get(0), currrency.get(0), price.get(0), date.get(0)});  //insert the info into the relevant rows for each column by taking the next from each array list
         }
 
     }//GEN-LAST:event_CurrencyChoiceActionPerformed
 
     private void updatePricesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePricesActionPerformed
-        DecimalFormat df = new DecimalFormat("0.00");
-        try {
-            updatePrices();
-        } catch (DatatypeConfigurationException_Exception ex) {
-            Logger.getLogger(clientApp.class.getName()).log(Level.SEVERE, null, ex);
-            purchasePane.setText("Unable to Update");
-        }
-
-        String arg1;
-        try {
-            arg1 = splitCurr[0];
-        } catch (NullPointerException e) {
-            arg1 = "GBP";
-        }
-        double convResult = 1;
-        String arg0 = "GBP";
-
-        convResult = getConversionRate(arg0, arg1);
-        int rows = table.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            table.removeRow(i);
-        }
-        List<StockType> collectionStock = allStocks();
-
-        Iterator itr = collectionStock.iterator();
-        StockType nextStock;
-
-        while (itr.hasNext()) {
-            nextStock = (StockType) itr.next();
-            List<String> name = new ArrayList();
-            name.add(nextStock.getName());
-
-            List<String> code = new ArrayList();
-            code.add(nextStock.getCode());
-
-            List<Integer> amount = new ArrayList();
-            amount.add(nextStock.getShareNo());
-
-            List<XMLGregorianCalendar> date = new ArrayList();
-            XMLGregorianCalendar dateDeets = nextStock.getStockPrice().getDate();
-            date.add(dateDeets);
-
-            List<String> currrency = new ArrayList();
-            String currencyDeets = arg1;
-            currrency.add(currencyDeets);
-
-            List<Double> price = new ArrayList();
-            Double baseCost = nextStock.getStockPrice().getSharePrice();
-            Double convPrice = baseCost * convResult;
-            Double formatPrice = Double.parseDouble(df.format(convPrice));
-            price.add(formatPrice);
-            table.insertRow(table.getRowCount(), new Object[]{name.get(0), code.get(0), amount.get(0), currrency.get(0), price.get(0), date.get(0)});
-
-        }
+        startUp();                                                        //do the startup function
     }//GEN-LAST:event_updatePricesActionPerformed
 
     /**
@@ -1040,6 +995,7 @@ public class clientApp extends javax.swing.JFrame {
     private javax.swing.JButton SellBtn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField buyAmount;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1099,22 +1055,24 @@ public class clientApp extends javax.swing.JFrame {
         return port.shareSell(arg0, arg1);
     }
 
-    private static java.util.List<java.lang.String> getCurrencyCodes() {
-        docwebservices.CurrencyConversionWSService service = new docwebservices.CurrencyConversionWSService();
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getCurrencyCodes();
-    }
-
-    private static double getConversionRate(java.lang.String arg0, java.lang.String arg1) {
-        docwebservices.CurrencyConversionWSService service = new docwebservices.CurrencyConversionWSService();
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getConversionRate(arg0, arg1);
-    }
+    
 
     private static void updatePrices() throws DatatypeConfigurationException_Exception {
         org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
         org.myws.StockWebService port = service.getStockWebServicePort();
         port.updatePrices();
+    }
+
+    private static double getConversionRate(java.lang.String arg0, java.lang.String arg1) {
+        org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
+        org.myws.StockWebService port = service.getStockWebServicePort();
+        return port.getConversionRate(arg0, arg1);
+    }
+
+    private static java.util.List<java.lang.String> getCurrencyCodes() {
+        org.myws.StockWebService_Service service = new org.myws.StockWebService_Service();
+        org.myws.StockWebService port = service.getStockWebServicePort();
+        return port.getCurrencyCodes();
     }
 
 }

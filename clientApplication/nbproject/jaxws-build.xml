@@ -16,23 +16,6 @@
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-CurrencyConversionWSService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService"/>
-        <property name="wsdl-CurrencyConversionWSService" location="xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService" destdir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService" wsdl="${wsdl-CurrencyConversionWSService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-CurrencyConversionWSService}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-CurrencyConversionWSService" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/CurrencyConversionWSService"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/docwebservices"/>
-    </target>
     <target name="wsimport-client-stockWebService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/stockWebService"/>
         <property name="wsdl-stockWebService" location="xml-resources/web-service-references/stockWebService/wsdl/localhost_8080/stockWebApplication/stockWebService.wsdl"/>
@@ -50,5 +33,5 @@
         <delete dir="${build.generated.dir}/jax-wsCache/stockWebService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/org/myws"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-CurrencyConversionWSService, wsimport-client-stockWebService"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-stockWebService"/>
 </project>

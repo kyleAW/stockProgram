@@ -5,6 +5,7 @@
  */
 package org.myws;
 
+import docwebservices.CurrencyConversionWSService;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,18 +21,23 @@ import stocks.StockType;
 import java.util.Calendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-
+import javax.xml.ws.WebServiceRef;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author Kyle
  */
 @WebService(serviceName = "stockWebService")
-public class stockWebService {    
-    
+public class stockWebService {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl")
+    private CurrencyConversionWSService service;
+
     private final String xmlLocation = "D:\\Kyle\\Documents\\Work\\Year 3\\Cloud Comp\\stockProgram\\stockWebApplication\\src\\java\\org\\myws\\currentStocks.xml";
     String name;
-    
 
     /**
      * This is a sample web service operation
@@ -258,20 +264,20 @@ public class stockWebService {
 
         return resultStocks;
     }
-
+    
     @WebMethod(operationName = "updatePrices")
-    public void updateStockPrices() throws DatatypeConfigurationException {        
+    public void updatePrices() throws DatatypeConfigurationException {
         StockPortfolio stocks = new StockPortfolio();
-        
+
         //quick thing to get todays date and convert to xmlgregorian for the xml file. this can be done from the api but was having problems with the dates
         DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-        Date date = new Date();        
+        Date date = new Date();
         Calendar cal = Calendar.getInstance();
         Date todate1 = cal.getTime();
-        String date1 = dateFormat.format(todate1);       
+        String date1 = dateFormat.format(todate1);
         XMLGregorianCalendar dateXMLGreg = DatatypeFactory.newInstance()
-                .newXMLGregorianCalendar(date1);      
-        
+                .newXMLGregorianCalendar(date1);
+
         //unmarshall everything
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
@@ -283,30 +289,74 @@ public class stockWebService {
         }
 
         List<StockType> listStocks = stocks.getStockCollection();
+        StringBuilder symList = new StringBuilder();
+        String sym = "";
+        
         for (StockType stock : listStocks) {
-            String sym = stock.getCode();
-            StockPriceManager price = new StockPriceManager();
-            double newPrice = price.updateStockPrice(sym);
-            
-            try { 
-                stock.getStockPrice().setSharePrice(newPrice);    
-                stock.getStockPrice().setDate(dateXMLGreg);
-                javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
-                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
-                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
-                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(stocks, new File(xmlLocation));
-            } catch (javax.xml.bind.JAXBException ex) {
-                // XXXTODO Handle exception
-                java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
-            }
+            symList.append(stock.getCode() + ",");
+            sym = symList.toString();
+            sym = sym.substring(0, sym.length() - 1);
+        }
+        double volume = 0.0;
+        double result = 0.0;
+        String url = "http://api.marketstack.com/v1/eod/latest?access_key=a7f06d13707cdd114b37a4babfea18f3&symbols=" + sym;
+        HttpSender sender = new HttpSender();
+        String response = sender.sendHTTP(url);
+        if (response != null && !response.equals("")) {
+            try {
+                JSONObject entireJSON = new JSONObject(response);
+                JSONArray resultsArray = entireJSON.getJSONArray("data");                 
+                //result = resultsArray.getJSONObject(0).getDouble("close");                  //doesnt use this anymore... need to check
+                                //amount of shares
+                
+                for (int i = 0; i < resultsArray.length(); i++) { // theres a problem with it going through the stocks
+                    String stockSYM = resultsArray.getJSONObject(i).getString("symbol");
+                    double stockPrice = resultsArray.getJSONObject(i).getDouble("close");
+                    volume = resultsArray.getJSONObject(i).getDouble("volume");
+                    int vol = (int)volume; //turns the double of the volume into an int for the xml                    
+                    for (StockType stockName : listStocks) {
+                        
+                        if (stockSYM.toLowerCase().equals(stockName.getCode().toLowerCase())) {
+                            
+                            try {                                
+                                stockName.getStockPrice().setSharePrice(stockPrice); //set the share price
+                                stockName.getStockPrice().setDate(dateXMLGreg); //set the date
+                                stockName.setShareNo(vol);                      //set the amount of shares avaliable
+                                javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
+                                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+                                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+                                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                                marshaller.marshal(stocks, new File(xmlLocation));
+                            } catch (javax.xml.bind.JAXBException ex) {
+                                // XXXTODO Handle exception
+                                java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+                            }
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                System.out.println("theres been a vital error in stock price manager :" + e);
             }
         }
-    
-        
-
     }
-        
 
+    @WebMethod(operationName = "getConversionRate")
+    public double getConversionRate(java.lang.String arg0, java.lang.String arg1) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
+        return port.getConversionRate(arg0, arg1);
+    }
+    
+     @WebMethod(operationName = "getCurrencyCodes")
 
+    public java.util.List<java.lang.String> getCurrencyCodes() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
+        return port.getCurrencyCodes();
+    }
+     
+    
 
+}
