@@ -7,8 +7,8 @@
   </services>
   <clients>
     <client name="CurrencyConversionWSService">
-      <wsdl-url>http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl</local-wsdl-file>
+      <wsdl-url>http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_58745/CurrencyConvertor/CurrencyConversionWSService.wsdl</local-wsdl-file>
       <package-name>docwebservices</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -26,7 +26,43 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>target</wsimport-option-name>
+          <wsimport-option-value>2.1</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="myCurrencyExchange">
+      <wsdl-url>http://localhost:8080/exchangeRate/myCurrencyExchange?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/exchangeRate/myCurrencyExchange.wsdl</local-wsdl-file>
+      <package-name>currencyconverter</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/exchangeRate/myCurrencyExchange?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

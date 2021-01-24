@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "CurrencyConversionWSService", targetNamespace = "http://DOCwebServices/", wsdlLocation = "http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl")
+@WebServiceClient(name = "CurrencyConversionWSService", targetNamespace = "http://DOCwebServices/", wsdlLocation = "http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?wsdl")
 public class CurrencyConversionWSService
     extends Service
 {
@@ -30,7 +30,7 @@ public class CurrencyConversionWSService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl");
+            url = new URL("http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

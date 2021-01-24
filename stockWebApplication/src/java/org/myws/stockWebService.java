@@ -5,6 +5,7 @@
  */
 package org.myws;
 
+import currencyconverter.MyCurrencyExchange_Service;
 import docwebservices.CurrencyConversionWSService;
 import java.io.File;
 import java.text.DateFormat;
@@ -33,6 +34,9 @@ import org.json.JSONObject;
 @WebService(serviceName = "stockWebService")
 public class stockWebService {
 
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/exchangeRate/myCurrencyExchange.wsdl")
+    private MyCurrencyExchange_Service service_1;
+
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl")
     private CurrencyConversionWSService service;
 
@@ -58,7 +62,7 @@ public class stockWebService {
         }
 
         List<StockType> currentStocks = stocks.getStockCollection();
-        return currentStocks;
+        return currentStocks; //unmarshalls into a list and returns the unorganised list
 
     }
 
@@ -89,7 +93,7 @@ public class stockWebService {
             }
         };
         listStocks.sort(dateCompare);
-        return listStocks;
+        return listStocks; //unmarshalls. sorts the list by the comparator to get it in date order from last update and returns the sorted list
     }
 
     @WebMethod(operationName = "priceOrder")
@@ -119,7 +123,7 @@ public class stockWebService {
             }
         };
         listStocks.sort(dateCompare);
-        return listStocks;
+        return listStocks; //unmarshalls into a list, sorts list by the comparator for price and then returns sorted list
     }
 
     @WebMethod(operationName = "shareOrder")
@@ -147,7 +151,7 @@ public class stockWebService {
         };
 
         listStocks.sort(dateCompare);
-        return listStocks;
+        return listStocks; //unmarshalls into list. sorts the list by a comparator that compares the amount of shares. sorted list is then returned
     }
 
     @WebMethod(operationName = "shareBuy")
@@ -164,7 +168,7 @@ public class stockWebService {
         }
 
         List<StockType> listStocks = stocks.getStockCollection();
-        for (StockType stock : listStocks) {
+        for (StockType stock : listStocks) { //searches through the xml for the correct stock
             if (share.toLowerCase().equals(stock.getName().toLowerCase())) {
 
                 int shareAmount = stock.getShareNo();
@@ -213,7 +217,7 @@ public class stockWebService {
         }
 
         List<StockType> listStocks = stocks.getStockCollection();
-        for (StockType stock : listStocks) {
+        for (StockType stock : listStocks) {//searches through the xml for the correct stock
             if (share.toLowerCase().equals(stock.getName().toLowerCase())) {
 
                 int shareAmount = stock.getShareNo();
@@ -222,7 +226,7 @@ public class stockWebService {
                 int prices = shareAmount + buyStocks;
                 stock.setShareNo(prices);
 
-                try {
+                try { //marshalls new stock amount to the xml
                     javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
                     javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
                     marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
@@ -238,7 +242,7 @@ public class stockWebService {
             }
         }
 
-        return false; //temp to stop error
+        return false; //to stop error never actually reaches here ever
 
     }
 
@@ -254,30 +258,23 @@ public class stockWebService {
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
 
-        List<StockType> resultStocks = new ArrayList<>();
+        List<StockType> resultStocks = new ArrayList<>(); //creates a new blank list
 
         for (StockType stock : stocks.getStockCollection()) {
             if (stock.getName().toLowerCase().contains(name.toLowerCase())) {
-                resultStocks.add(stock);
+                resultStocks.add(stock); //finds the stock from the unmarshalled list and adds it to the new array list
             }
         }
 
-        return resultStocks;
+        return resultStocks; //returns the array list
     }
     
     @WebMethod(operationName = "updatePrices")
     public void updatePrices() throws DatatypeConfigurationException {
+        
         StockPortfolio stocks = new StockPortfolio();
-
-        //quick thing to get todays date and convert to xmlgregorian for the xml file. this can be done from the api but was having problems with the dates
-        DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        Date todate1 = cal.getTime();
-        String date1 = dateFormat.format(todate1);
-        XMLGregorianCalendar dateXMLGreg = DatatypeFactory.newInstance()
-                .newXMLGregorianCalendar(date1);
-
+        
+        
         //unmarshall everything
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
@@ -299,13 +296,13 @@ public class stockWebService {
         }
         double volume = 0.0;
         double result = 0.0;
-        String url = "http://api.marketstack.com/v1/eod/latest?access_key=a7f06d13707cdd114b37a4babfea18f3&symbols=" + sym;
+        String url = "http://api.marketstack.com/v1/eod/latest?access_key=eb178bef368b5bbca7611722b6ce5d60&symbols=" + sym;
         HttpSender sender = new HttpSender();
         String response = sender.sendHTTP(url);
         if (response != null && !response.equals("")) {
             try {
                 JSONObject entireJSON = new JSONObject(response);
-                JSONArray resultsArray = entireJSON.getJSONArray("data");                 
+                JSONArray resultsArray = entireJSON.getJSONArray("data");                   
                 //result = resultsArray.getJSONObject(0).getDouble("close");                  //doesnt use this anymore... need to check
                                 //amount of shares
                 
@@ -313,6 +310,10 @@ public class stockWebService {
                     String stockSYM = resultsArray.getJSONObject(i).getString("symbol");
                     double stockPrice = resultsArray.getJSONObject(i).getDouble("close");
                     volume = resultsArray.getJSONObject(i).getDouble("volume");
+                    String[] dateFetch = resultsArray.getJSONObject(i).getString("date").split("T");                   
+                    XMLGregorianCalendar XMLGregdate = DatatypeFactory.newInstance()
+                .newXMLGregorianCalendar(dateFetch[0]);
+                    System.out.println(XMLGregdate);
                     int vol = (int)volume; //turns the double of the volume into an int for the xml                    
                     for (StockType stockName : listStocks) {
                         
@@ -320,7 +321,7 @@ public class stockWebService {
                             
                             try {                                
                                 stockName.getStockPrice().setSharePrice(stockPrice); //set the share price
-                                stockName.getStockPrice().setDate(dateXMLGreg); //set the date
+                                stockName.getStockPrice().setDate(XMLGregdate); //set the date
                                 stockName.setShareNo(vol);                      //set the amount of shares avaliable
                                 javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(stocks.getClass().getPackage().getName());
                                 javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
@@ -341,22 +342,25 @@ public class stockWebService {
     }
 
     @WebMethod(operationName = "getConversionRate")
-    public double getConversionRate(java.lang.String arg0, java.lang.String arg1) {
+    public double getMyConversionRate(java.lang.String arg0, java.lang.String arg1) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getConversionRate(arg0, arg1);
+        currencyconverter.MyCurrencyExchange port = service_1.getMyCurrencyExchangePort();
+        return port.getMyConversionRate(arg0, arg1);
     }
     
      @WebMethod(operationName = "getCurrencyCodes")
-
-    public java.util.List<java.lang.String> getCurrencyCodes() {
+    public java.util.List<java.lang.String> getMyCurrencyCodes() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-        return port.getCurrencyCodes();
+        currencyconverter.MyCurrencyExchange port = service_1.getMyCurrencyExchangePort();
+        return port.getMyCurrencyCodes();
     }
-     
+
     
+
+    
+ 
+
 
 }

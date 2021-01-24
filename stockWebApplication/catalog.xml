@@ -4,4 +4,8 @@
     <system systemId="file:/D:/Kyle/Documents/Work/Year%203/Cloud%20Comp/stockProgram/stockWebApplication/src/java/org/myws/stock.xsd" uri="src/conf/xml-resources/jaxb/stockList/stock.xsd"/>
     <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl" uri="src/conf/xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl"/>
     <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?xsd=1" uri="src/conf/xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.xsd_1.xsd"/>
+    <system systemId="http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?wsdl" uri="src/conf/xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_58745/CurrencyConvertor/CurrencyConversionWSService.wsdl"/>
+    <system systemId="http://localhost:58745/CurrencyConvertor/CurrencyConversionWSService?xsd=1" uri="src/conf/xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_58745/CurrencyConvertor/CurrencyConversionWSService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/exchangeRate/myCurrencyExchange?wsdl" uri="src/conf/xml-resources/web-service-references/myCurrencyExchange/wsdl/localhost_8080/exchangeRate/myCurrencyExchange.wsdl"/>
+    <system systemId="http://localhost:8080/exchangeRate/myCurrencyExchange?xsd=1" uri="src/conf/xml-resources/web-service-references/myCurrencyExchange/wsdl/localhost_8080/exchangeRate/myCurrencyExchange.xsd_1.xsd"/>
 </catalog>

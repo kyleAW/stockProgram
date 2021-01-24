@@ -26,6 +26,17 @@ public interface CurrencyConversionWS {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod(operationName = "GetCurrencyCodes")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetCurrencyCodes", targetNamespace = "http://DOCwebServices/", className = "docwebservices.GetCurrencyCodes")
+    @ResponseWrapper(localName = "GetCurrencyCodesResponse", targetNamespace = "http://DOCwebServices/", className = "docwebservices.GetCurrencyCodesResponse")
+    public List<String> getCurrencyCodes();
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -40,16 +51,5 @@ public interface CurrencyConversionWS {
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod(operationName = "GetCurrencyCodes")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetCurrencyCodes", targetNamespace = "http://DOCwebServices/", className = "docwebservices.GetCurrencyCodes")
-    @ResponseWrapper(localName = "GetCurrencyCodesResponse", targetNamespace = "http://DOCwebServices/", className = "docwebservices.GetCurrencyCodesResponse")
-    public List<String> getCurrencyCodes();
 
 }

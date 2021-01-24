@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl" uri="wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl"/>
-    <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?xsd=1" uri="wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl" uri="xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl"/>
+    <system systemId="http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?xsd=1" uri="xml-resources/web-service-references/CurrencyConversionWSService/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.xsd_1.xsd"/>
+    <system systemId="http://localhost:58745/stockWebApplication/stockWebService?wsdl" uri="wsdl/localhost_58745/stockWebApplication/stockWebService.wsdl"/>
+    <system systemId="http://localhost:58745/stockWebApplication/stockWebService?xsd=1" uri="wsdl/localhost_58745/stockWebApplication/stockWebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:58745/stockWebApplication/stockWebService?xsd=2" uri="wsdl/localhost_58745/stockWebApplication/stockWebService.xsd_2.xsd"/>
     <system systemId="http://localhost:8080/stockWebApplication/stockWebService?wsdl" uri="wsdl/localhost_8080/stockWebApplication/stockWebService.wsdl"/>
     <system systemId="http://localhost:8080/stockWebApplication/stockWebService?xsd=1" uri="wsdl/localhost_8080/stockWebApplication/stockWebService.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/stockWebApplication/stockWebService?xsd=2" uri="wsdl/localhost_8080/stockWebApplication/stockWebService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/exchangeRate/myCurrencyExchange?wsdl" uri="wsdl/localhost_8080/exchangeRate/myCurrencyExchange.wsdl"/>
+    <system systemId="http://localhost:8080/exchangeRate/myCurrencyExchange?xsd=1" uri="wsdl/localhost_8080/exchangeRate/myCurrencyExchange.xsd_1.xsd"/>
 </catalog>

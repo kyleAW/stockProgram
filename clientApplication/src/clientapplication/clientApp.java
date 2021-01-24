@@ -57,6 +57,7 @@ public class clientApp extends javax.swing.JFrame {
                 }
             };
         });    
+        
         startUp();
     }
 
@@ -185,7 +186,7 @@ public class clientApp extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        CurrencyChoice.setSelectedIndex(15);
+        CurrencyChoice.setSelectedIndex(49);
         CurrencyChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CurrencyChoiceActionPerformed(evt);
@@ -868,7 +869,7 @@ public class clientApp extends javax.swing.JFrame {
         // clicker for the newsfeed
         int selected = stockTable.getSelectedRow();
         selectedStock = table.getValueAt(selected, 0).toString();
-        newsClick(selectedStock.replace(" ","&/"));
+        newsClick(selectedStock.replace(" ","%20"));
 
     }//GEN-LAST:event_stockTableMouseClicked
 
@@ -877,8 +878,10 @@ public class clientApp extends javax.swing.JFrame {
         newsFeed.setEditable(false);            //setup for newsfeed box
         newsFeed.setCaretPosition(0);           //setup for newsfeed box
         
-        newsAPI newsReel = new newsAPI(); //create a new instance of the newsAPI for the newsfeed
-        String htmlContent = newsReel.newsFeed(comp);        //create the html string for the JEditPanel to display
+       
+        restNewsAPI newsReel = new restNewsAPI(); //create a new instance of the newsAPI for the newsfeed
+        String htmlContent = newsReel.putHtml(comp); //retrieves the html string for the JEditPanel to display from the rest API
+        newsReel.close();
         newsFeed.setText(htmlContent); //display the html in the newsfeed box
     }
 

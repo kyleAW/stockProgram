@@ -7,27 +7,27 @@
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>27.35</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>Advanced Micro Devices</name>
-        <code>AMD</code>
-        <shareNo>71294707</shareNo>
+        <name>AstraZeneca</name>
+        <code>AZN</code>
+        <shareNo>13372689</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>92.79</sharePrice>
-            <date>2021-01-23</date>
+            <sharePrice>53.25</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Tesla</name>
         <code>TSLA</code>
-        <shareNo>19886829</shareNo>
+        <shareNo>20066497</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>846.64</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -37,17 +37,17 @@
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>3292.23</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Facebook</name>
         <code>FB</code>
-        <shareNo>21742292</shareNo>
+        <shareNo>21954042</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>274.5</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
@@ -57,87 +57,87 @@
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>139.07</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Google</name>
         <code>GOOG</code>
-        <shareNo>1270220</shareNo>
+        <shareNo>1272232</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>1901.05</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>HSBC</name>
         <code>HSBC</code>
-        <shareNo>1340242</shareNo>
+        <shareNo>1340378</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>27.82</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>Lloyds</name>
-        <code>LLOY</code>
-        <shareNo>1340242</shareNo>
+        <name>Netflix</name>
+        <code>NFLX</code>
+        <shareNo>7550822</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>27.82</sharePrice>
-            <date>2021-01-23</date>
+            <sharePrice>565.17</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>British Petroleum</name>
-        <code>BP</code>
-        <shareNo>15169283</shareNo>
+        <name>Adobe</name>
+        <code>ADBE</code>
+        <shareNo>2534274</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>23.87</sharePrice>
-            <date>2021-01-23</date>
+            <sharePrice>472.44</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>Vodafone Group</name>
+        <name>Vodafone</name>
         <code>VOD</code>
-        <shareNo>1807436</shareNo>
+        <shareNo>1817079</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>17.58</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
-        <name>Rolls-Royce</name>
-        <code>RR</code>
-        <shareNo>1340242</shareNo>
+        <name>Pepsi</name>
+        <code>PEP</code>
+        <shareNo>4014925</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
-            <sharePrice>27.82</sharePrice>
-            <date>2021-01-23</date>
+            <sharePrice>138.59</sharePrice>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Microsoft</name>
         <code>MSFT</code>
-        <shareNo>30052062</shareNo>
+        <shareNo>30172663</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>225.95</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
     <stock_collection>
         <name>Starbucks</name>
         <code>SBUX</code>
-        <shareNo>5181272</shareNo>
+        <shareNo>5231584</shareNo>
         <stock_price>
             <Currency>GBP</Currency>
             <sharePrice>103.91</sharePrice>
-            <date>2021-01-23</date>
+            <date>2021-01-22</date>
         </stock_price>
     </stock_collection>
 </stockPortfolio>

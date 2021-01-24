@@ -302,7 +302,7 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;(currArray)"/>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List&lt;String&gt; currencyList = getCurrencyCodes();&#xa;        String[] currArray = new String[currencyList.size()];&#xa;        currArray = currencyList.toArray(currArray);"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="CurrencyChoice.setSelectedIndex(15);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="CurrencyChoice.setSelectedIndex(49);"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>

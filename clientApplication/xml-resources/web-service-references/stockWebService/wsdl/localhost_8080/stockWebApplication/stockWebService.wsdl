@@ -7,39 +7,6 @@
 <xsd:import namespace="http://myws.org/" schemaLocation="http://localhost:8080/stockWebApplication/stockWebService?xsd=2"/>
 </xsd:schema>
 </types>
-<message name="getConversionRate">
-<part name="parameters" element="tns:getConversionRate"/>
-</message>
-<message name="getConversionRateResponse">
-<part name="parameters" element="tns:getConversionRateResponse"/>
-</message>
-<message name="updatePrices">
-<part name="parameters" element="tns:updatePrices"/>
-</message>
-<message name="updatePricesResponse">
-<part name="parameters" element="tns:updatePricesResponse"/>
-</message>
-<message name="DatatypeConfigurationException">
-<part name="fault" element="tns:DatatypeConfigurationException"/>
-</message>
-<message name="shareBuy">
-<part name="parameters" element="tns:shareBuy"/>
-</message>
-<message name="shareBuyResponse">
-<part name="parameters" element="tns:shareBuyResponse"/>
-</message>
-<message name="allStocks">
-<part name="parameters" element="tns:allStocks"/>
-</message>
-<message name="allStocksResponse">
-<part name="parameters" element="tns:allStocksResponse"/>
-</message>
-<message name="shareOrder">
-<part name="parameters" element="tns:shareOrder"/>
-</message>
-<message name="shareOrderResponse">
-<part name="parameters" element="tns:shareOrderResponse"/>
-</message>
 <message name="dateOrder">
 <part name="parameters" element="tns:dateOrder"/>
 </message>
@@ -52,11 +19,32 @@
 <message name="priceOrderResponse">
 <part name="parameters" element="tns:priceOrderResponse"/>
 </message>
+<message name="shareOrder">
+<part name="parameters" element="tns:shareOrder"/>
+</message>
+<message name="shareOrderResponse">
+<part name="parameters" element="tns:shareOrderResponse"/>
+</message>
 <message name="shareSell">
 <part name="parameters" element="tns:shareSell"/>
 </message>
 <message name="shareSellResponse">
 <part name="parameters" element="tns:shareSellResponse"/>
+</message>
+<message name="updatePrices">
+<part name="parameters" element="tns:updatePrices"/>
+</message>
+<message name="updatePricesResponse">
+<part name="parameters" element="tns:updatePricesResponse"/>
+</message>
+<message name="DatatypeConfigurationException">
+<part name="fault" element="tns:DatatypeConfigurationException"/>
+</message>
+<message name="allStocks">
+<part name="parameters" element="tns:allStocks"/>
+</message>
+<message name="allStocksResponse">
+<part name="parameters" element="tns:allStocksResponse"/>
 </message>
 <message name="getCurrencyCodes">
 <part name="parameters" element="tns:getCurrencyCodes"/>
@@ -64,34 +52,25 @@
 <message name="getCurrencyCodesResponse">
 <part name="parameters" element="tns:getCurrencyCodesResponse"/>
 </message>
+<message name="shareBuy">
+<part name="parameters" element="tns:shareBuy"/>
+</message>
+<message name="shareBuyResponse">
+<part name="parameters" element="tns:shareBuyResponse"/>
+</message>
 <message name="searchStock">
 <part name="parameters" element="tns:searchStock"/>
 </message>
 <message name="searchStockResponse">
 <part name="parameters" element="tns:searchStockResponse"/>
 </message>
+<message name="getConversionRate">
+<part name="parameters" element="tns:getConversionRate"/>
+</message>
+<message name="getConversionRateResponse">
+<part name="parameters" element="tns:getConversionRateResponse"/>
+</message>
 <portType name="stockWebService">
-<operation name="getConversionRate">
-<input wsam:Action="http://myws.org/stockWebService/getConversionRateRequest" message="tns:getConversionRate"/>
-<output wsam:Action="http://myws.org/stockWebService/getConversionRateResponse" message="tns:getConversionRateResponse"/>
-</operation>
-<operation name="updatePrices">
-<input wsam:Action="http://myws.org/stockWebService/updatePricesRequest" message="tns:updatePrices"/>
-<output wsam:Action="http://myws.org/stockWebService/updatePricesResponse" message="tns:updatePricesResponse"/>
-<fault message="tns:DatatypeConfigurationException" name="DatatypeConfigurationException" wsam:Action="http://myws.org/stockWebService/updatePrices/Fault/DatatypeConfigurationException"/>
-</operation>
-<operation name="shareBuy">
-<input wsam:Action="http://myws.org/stockWebService/shareBuyRequest" message="tns:shareBuy"/>
-<output wsam:Action="http://myws.org/stockWebService/shareBuyResponse" message="tns:shareBuyResponse"/>
-</operation>
-<operation name="allStocks">
-<input wsam:Action="http://myws.org/stockWebService/allStocksRequest" message="tns:allStocks"/>
-<output wsam:Action="http://myws.org/stockWebService/allStocksResponse" message="tns:allStocksResponse"/>
-</operation>
-<operation name="shareOrder">
-<input wsam:Action="http://myws.org/stockWebService/shareOrderRequest" message="tns:shareOrder"/>
-<output wsam:Action="http://myws.org/stockWebService/shareOrderResponse" message="tns:shareOrderResponse"/>
-</operation>
 <operation name="dateOrder">
 <input wsam:Action="http://myws.org/stockWebService/dateOrderRequest" message="tns:dateOrder"/>
 <output wsam:Action="http://myws.org/stockWebService/dateOrderResponse" message="tns:dateOrderResponse"/>
@@ -100,22 +79,70 @@
 <input wsam:Action="http://myws.org/stockWebService/priceOrderRequest" message="tns:priceOrder"/>
 <output wsam:Action="http://myws.org/stockWebService/priceOrderResponse" message="tns:priceOrderResponse"/>
 </operation>
+<operation name="shareOrder">
+<input wsam:Action="http://myws.org/stockWebService/shareOrderRequest" message="tns:shareOrder"/>
+<output wsam:Action="http://myws.org/stockWebService/shareOrderResponse" message="tns:shareOrderResponse"/>
+</operation>
 <operation name="shareSell">
 <input wsam:Action="http://myws.org/stockWebService/shareSellRequest" message="tns:shareSell"/>
 <output wsam:Action="http://myws.org/stockWebService/shareSellResponse" message="tns:shareSellResponse"/>
+</operation>
+<operation name="updatePrices">
+<input wsam:Action="http://myws.org/stockWebService/updatePricesRequest" message="tns:updatePrices"/>
+<output wsam:Action="http://myws.org/stockWebService/updatePricesResponse" message="tns:updatePricesResponse"/>
+<fault message="tns:DatatypeConfigurationException" name="DatatypeConfigurationException" wsam:Action="http://myws.org/stockWebService/updatePrices/Fault/DatatypeConfigurationException"/>
+</operation>
+<operation name="allStocks">
+<input wsam:Action="http://myws.org/stockWebService/allStocksRequest" message="tns:allStocks"/>
+<output wsam:Action="http://myws.org/stockWebService/allStocksResponse" message="tns:allStocksResponse"/>
 </operation>
 <operation name="getCurrencyCodes">
 <input wsam:Action="http://myws.org/stockWebService/getCurrencyCodesRequest" message="tns:getCurrencyCodes"/>
 <output wsam:Action="http://myws.org/stockWebService/getCurrencyCodesResponse" message="tns:getCurrencyCodesResponse"/>
 </operation>
+<operation name="shareBuy">
+<input wsam:Action="http://myws.org/stockWebService/shareBuyRequest" message="tns:shareBuy"/>
+<output wsam:Action="http://myws.org/stockWebService/shareBuyResponse" message="tns:shareBuyResponse"/>
+</operation>
 <operation name="searchStock">
 <input wsam:Action="http://myws.org/stockWebService/searchStockRequest" message="tns:searchStock"/>
 <output wsam:Action="http://myws.org/stockWebService/searchStockResponse" message="tns:searchStockResponse"/>
 </operation>
+<operation name="getConversionRate">
+<input wsam:Action="http://myws.org/stockWebService/getConversionRateRequest" message="tns:getConversionRate"/>
+<output wsam:Action="http://myws.org/stockWebService/getConversionRateResponse" message="tns:getConversionRateResponse"/>
+</operation>
 </portType>
 <binding name="stockWebServicePortBinding" type="tns:stockWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getConversionRate">
+<operation name="dateOrder">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="priceOrder">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="shareOrder">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="shareSell">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -136,52 +163,7 @@
 <soap:fault name="DatatypeConfigurationException" use="literal"/>
 </fault>
 </operation>
-<operation name="shareBuy">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="allStocks">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="shareOrder">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="dateOrder">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="priceOrder">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="shareSell">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -199,7 +181,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="shareBuy">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="searchStock">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getConversionRate">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
