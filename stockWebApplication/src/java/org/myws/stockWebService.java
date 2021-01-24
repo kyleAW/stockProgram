@@ -35,12 +35,12 @@ import org.json.JSONObject;
 public class stockWebService {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/exchangeRate/myCurrencyExchange.wsdl")
-    private MyCurrencyExchange_Service service_1;
+    private MyCurrencyExchange_Service service_1;  //for the new realtime currency and exchange rate api
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl")
-    private CurrencyConversionWSService service;
+    private CurrencyConversionWSService service;   //for the old webservice currency from taha
 
-    private final String xmlLocation = "D:\\Kyle\\Documents\\Work\\Year 3\\Cloud Comp\\stockProgram\\stockWebApplication\\src\\java\\org\\myws\\currentStocks.xml";
+    private final String xmlLocation = "D:\\Kyle\\Documents\\Work\\Year 3\\Cloud Comp\\stockProgram\\stockWebApplication\\src\\java\\org\\myws\\currentStocks.xml";  //xml file hardcoded to ensure the correct copy as glassfish was creating a duplicate that it wanted to use
     String name;
 
     /**
@@ -193,13 +193,13 @@ public class stockWebService {
                 } else {
                     System.out.println("not enough shares to purchase");
                     return false;
-                    //need to return false
+                    
                 }
             }
         }
 
-        System.out.println("test for this bit");
-        return false; //temp to stop error
+      
+        return false; //temp to stop error doesnt actually make it to here ever as its either returned true or false before
 
     }
 
@@ -290,30 +290,28 @@ public class stockWebService {
         String sym = "";
         
         for (StockType stock : listStocks) {
-            symList.append(stock.getCode() + ",");
+            symList.append(stock.getCode() + ","); //
             sym = symList.toString();
             sym = sym.substring(0, sym.length() - 1);
         }
         double volume = 0.0;
         double result = 0.0;
-        String url = "http://api.marketstack.com/v1/eod/latest?access_key=eb178bef368b5bbca7611722b6ce5d60&symbols=" + sym;
+        String url = "http://api.marketstack.com/v1/eod/latest?access_key=eb178bef368b5bbca7611722b6ce5d60&symbols=" + sym;   //api address
         HttpSender sender = new HttpSender();
         String response = sender.sendHTTP(url);
         if (response != null && !response.equals("")) {
             try {
                 JSONObject entireJSON = new JSONObject(response);
-                JSONArray resultsArray = entireJSON.getJSONArray("data");                   
-                //result = resultsArray.getJSONObject(0).getDouble("close");                  //doesnt use this anymore... need to check
-                                //amount of shares
-                
+                JSONArray resultsArray = entireJSON.getJSONArray("data");         // json comes through as an array of objects get the object labeled as data         
+         
                 for (int i = 0; i < resultsArray.length(); i++) { // theres a problem with it going through the stocks
-                    String stockSYM = resultsArray.getJSONObject(i).getString("symbol");
-                    double stockPrice = resultsArray.getJSONObject(i).getDouble("close");
-                    volume = resultsArray.getJSONObject(i).getDouble("volume");
-                    String[] dateFetch = resultsArray.getJSONObject(i).getString("date").split("T");                   
-                    XMLGregorianCalendar XMLGregdate = DatatypeFactory.newInstance()
+                    String stockSYM = resultsArray.getJSONObject(i).getString("symbol"); //from the data object pull symbol
+                    double stockPrice = resultsArray.getJSONObject(i).getDouble("close");//from the data object pull the close balance
+                    volume = resultsArray.getJSONObject(i).getDouble("volume");          //from the data object pull the volume
+                    String[] dateFetch = resultsArray.getJSONObject(i).getString("date").split("T"); //from the data object pull the date, splitting at the T as we only want the date not the time                  
+                    XMLGregorianCalendar XMLGregdate = DatatypeFactory.newInstance()    //xml uses gregorian calender so creates a new isntance of it to turn the string date into the correct format
                 .newXMLGregorianCalendar(dateFetch[0]);
-                    System.out.println(XMLGregdate);
+                   
                     int vol = (int)volume; //turns the double of the volume into an int for the xml                    
                     for (StockType stockName : listStocks) {
                         

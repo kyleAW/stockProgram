@@ -16,37 +16,37 @@ import java.net.URL;
  */
 public class HttpSender {
 
+    //basic http sender class to send GET requests and return the string that was retrieved
     public String sendHTTP(String url) {
         StringBuffer response = new StringBuffer();
-        try{
-        URL urlObj = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
+        try {
+            URL urlObj = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
 
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-        System.out.println("Send 'HTTP GET' request to : " + url);
+            System.out.println("Send 'HTTP GET' request to : " + url);
 
-        Integer responseCode = connection.getResponseCode();
-        System.out.println("Response Code : " + responseCode);
+            Integer responseCode = connection.getResponseCode();
+            System.out.println("Response Code : " + responseCode);
 
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader inputReader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader inputReader = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                String inputLine;
 
-            while ((inputLine = inputReader.readLine()) != null) {
-                response.append(inputLine);
+                while ((inputLine = inputReader.readLine()) != null) {
+                    response.append(inputLine);
+                }
+
+                inputReader.close();
+
             }
+        } catch (Exception e) {
+            System.out.println("Theres been a problem with the share prices :" + e);
+        }
 
-            inputReader.close();
-
-            
-        }}
-        catch(Exception e){
-            System.out.println("Theres been a problem with the share prices :"+e);
-        }        
-        
         return response.toString();
-    }}
+    }
+}

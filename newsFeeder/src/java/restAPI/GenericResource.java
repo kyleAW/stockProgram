@@ -99,10 +99,10 @@ public class GenericResource {
      *
      * @param content representation for the resource
      */
-    @PUT
+    @PUT 
     @Consumes(MediaType.TEXT_HTML)
     public String putHtml(String company) {
-        String content = getHtml(company);
-        return content;        
+        String content = getHtml(company);  //put requests the getHTML to get the latest news and convert it into a html page for the client
+        return content;        //returns the latest news html page to the restAPI in client
     }
 }

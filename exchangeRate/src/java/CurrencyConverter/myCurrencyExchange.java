@@ -30,35 +30,35 @@ public class myCurrencyExchange {
      */
     @WebMethod(operationName = "getMyCurrencyCodes")
     public List<String> GetCurrencyCodes() {
-        String currenciesList = "https://free.currconv.com/api/v7/currencies?apiKey=da209d38ceed1164c615";
+        String currenciesList = "https://free.currconv.com/api/v7/currencies?apiKey=da209d38ceed1164c615"; //the latest currency list url string
 
-        HttpSender send = new HttpSender();
-        String response = send.sendHTTP(currenciesList);
+        HttpSender send = new HttpSender(); //creates a new sender
+        String response = send.sendHTTP(currenciesList); //passes the string to the sender
         JSONObject entireJSON = new JSONObject(response.trim());
-        JSONObject resultsObject = entireJSON.getJSONObject("results".trim());
-        Iterator<String> keys = resultsObject.keys();
-        List<String> currencyList = new ArrayList();
+        JSONObject resultsObject = entireJSON.getJSONObject("results".trim());//gets the results in a json object
+        Iterator<String> keys = resultsObject.keys(); //creates an iterator for the keys in the json object
+        List<String> currencyList = new ArrayList(); //creates a new blank list for the currencies
 
-        while (keys.hasNext()) {
+        while (keys.hasNext()) { //while theres another key in the list
             String key = keys.next();
-            JSONObject currSep = resultsObject.getJSONObject(key);
-            String curr = currSep.getString("id") + " - " + currSep.getString("currencyName");
-            currencyList.add(curr);
+            JSONObject currSep = resultsObject.getJSONObject(key); //get the object at that key
+            String curr = currSep.getString("id") + " - " + currSep.getString("currencyName"); //create a string with the id and currency name for that key
+            currencyList.add(curr); //add it to the list above
         }
 
-        List<String> sortedList = currencyList.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
-        return sortedList;
+        List<String> sortedList = currencyList.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList()); //sort the list by alphabetical order
+        return sortedList; //return the sorted list for the combo box to use
     }
 
     @WebMethod(operationName = "getMyConversionRate")
     public double GetConversionRate(String curr, String cur2) {
-        String convList = "https://free.currconv.com/api/v7/convert?apiKey=da209d38ceed1164c615&q=GBP_" + cur2 + "&compact=y";
-        HttpSender send = new HttpSender();
+        String convList = "https://free.currconv.com/api/v7/convert?apiKey=da209d38ceed1164c615&q=GBP_" + cur2 + "&compact=y"; //take the currency passed throuugh and add to the string
+        HttpSender send = new HttpSender(); //create a new sender
         String key = "GBP_" + cur2;
-        String convResponse = send.sendHTTP(convList);
-        JSONObject entireJSON = new JSONObject(convResponse.trim());
-        JSONObject valueRemoved = entireJSON.getJSONObject(key);
-        double conv = valueRemoved.getDouble("val");
-        return conv;
+        String convResponse = send.sendHTTP(convList); //pass the string to the http sender
+        JSONObject entireJSON = new JSONObject(convResponse.trim()); //get the response and turn it into ajson object
+        JSONObject valueRemoved = entireJSON.getJSONObject(key); //get the object at the key
+        double conv = valueRemoved.getDouble("val"); //from the object get the val to get the exchange rate
+        return conv; //return the exchange rate
     }
 }
